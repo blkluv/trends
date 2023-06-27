@@ -1,10 +1,12 @@
 import { FieldValues, useForm } from 'react-hook-form';
-import { FormControl, StyledForm } from '../pages/trends/CreateTrend';
+import { FormControl } from '../pages/trends/CreateTrend';
 import { useMutateComments } from '../hooks/useMutateComments';
 import toast from 'react-hot-toast';
 import { Button } from '../pages/trends/CreateTrend';
 import styled from 'styled-components';
 import { useTrendingStore } from '../store';
+import { IStyledProps } from '../interfaces/cssComponentStyles';
+import { StyledForm } from './CssComponents/StyledComponents';
 
 interface Props {
 	username: string;
@@ -37,7 +39,7 @@ const CommentForm = ({ username, id }: Props) => {
 
 	return (
 		<StyledCommentForm setting={theme}>
-			<StyledForm>
+			<StyledForm setting={theme}>
 				<h2>New Comment</h2>
 				<form onSubmit={handleSubmit(onSubmitComment)}>
 					<FormControl className='form-control'>
@@ -58,7 +60,7 @@ const CommentForm = ({ username, id }: Props) => {
 export default CommentForm;
 
 //CSS Components
-const StyledCommentForm = styled.div`
+const StyledCommentForm = styled.div<IStyledProps>`
 	${(props) =>
 		props.setting === 'light'
 			? 'color:  var(--color-black-500);'

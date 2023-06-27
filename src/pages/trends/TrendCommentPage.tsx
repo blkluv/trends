@@ -9,6 +9,7 @@ import Vote from '../../components/Vote';
 import moment from 'moment';
 import Views from '../../components/Views';
 import CommentsIcon from '../../components/CommentsIcon';
+import { IStyledProps } from '../../interfaces/cssComponentStyles';
 
 // ! Investigate why the comments icon is rendered out the number of times as there are posts when navigating to this page, but only when user is logged in. When not logged in, the comments are only rendered out once, as expected.
 const TrendCommentPage = () => {
@@ -32,7 +33,7 @@ const TrendCommentPage = () => {
 
 	return (
 		<TrendCommentPageStyles setting={theme}>
-			<TrendStyles setting={theme} type={'trend-comment-page'}>
+			<TrendStyles setting={theme}>
 				<h1>{title}</h1>
 				<div className='image'>
 					<img src={image} width='300px' alt={title} />
@@ -77,7 +78,7 @@ const TrendCommentPage = () => {
 export default TrendCommentPage;
 
 // CSS-Components
-const TrendCommentPageStyles = styled.div`
+const TrendCommentPageStyles = styled.div<IStyledProps>`
 	h2 {
 		text-align: center;
 	}

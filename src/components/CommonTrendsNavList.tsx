@@ -2,6 +2,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Icon from './Icon';
 import { useTrendingStore } from '../store';
+import { IStyledProps} from '../interfaces/cssComponentStyles';
 
 
 interface Props {
@@ -44,7 +45,7 @@ export default CommonTrendsNavList;
 
 // CSS Components
 
-const CommonTrendsNavListStyles = styled.ul`
+const CommonTrendsNavListStyles = styled.ul<IStyledProps>`
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;

@@ -2,6 +2,8 @@ import { NavLink } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { FcComboChart } from 'react-icons/fc';
 import { useTrendingStore } from '../store';
+import { IStyledProps } from '../interfaces/cssComponentStyles';
+
 
 const Header = () => {
 	const theme = useTrendingStore((store) => store.theme);
@@ -43,7 +45,7 @@ const Header = () => {
 export default Header;
 
 // Styled Components
-const HeaderStyles = styled.div`
+const HeaderStyles = styled.div<IStyledProps>`
 	${(props) =>
 		props.setting === 'light'
 			? 'background: var(--color-pink-100)'
@@ -97,7 +99,7 @@ const HeaderStyles = styled.div`
 	}
 `;
 
-const NavLinkStyles = styled.div`
+const NavLinkStyles = styled.div<IThemeSettingStyle>`
 	display: flex;
 	align-items: flex-end;
 	gap: 0.7rem;

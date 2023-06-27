@@ -7,6 +7,7 @@ import { useTrendingStore } from '../store';
 import { FaMapSigns } from 'react-icons/fa';
 import { executeInTryCatchBlock } from '../utility/tryCatchHelpers';
 import { useState } from 'react';
+import { IStyledProps } from '../interfaces/cssComponentStyles';
 
 const Auth = () => {
 	const { register, handleSubmit } = useForm();
@@ -71,10 +72,10 @@ const Auth = () => {
 						{...register('password')}
 					/>
 				</FormControl>
-				<Button>Submit</Button>
+				<StyledButton>Submit</StyledButton>
 			</form>
-			<Button
-				size={'0.4rem'}
+			<StyledButton
+				fontSize={'0.4rem'}
 				padding={'0.2rem'}
 				margin={'0rem'}
 				color={
@@ -89,7 +90,7 @@ const Auth = () => {
 					authType === 'login' ? setAuthType('sign-up') : setAuthType('login')
 				}>
 				<FaMapSigns /> {authType === 'login' ? 'Sign up' : 'Login'}
-			</Button>
+			</StyledButton>
 		</StyledForm>
 	);
 };
@@ -134,20 +135,20 @@ const FormControl = styled.div`
 	flex-direction: column;
 `;
 
-const Button = styled.button`
+const StyledButton = styled.button<IStyledProps>`
 	margin: 0.2rem 0;
 	padding: 0 0.5rem;
 	font-size: 0.9rem;
-	${(props) => 'font-size: ' + props.size};
+	${(props) => 'font-size: ' + props.fontSize};
 	${(props) => 'padding: ' + props.padding};
 	${(props) => 'margin: ' + props.margin};
 	${(props) => 'color: ' + props.color};
 	${(props) => 'border: ' + props.border};
 
-  &:hover{
+ /*  &:hover{
     ${(props) => 'border: ' + props.borderHover};
     ${(props) => 'color: ' + props.colorHover};
-  }
+  } */
 `;
 
 const StyledDiv = styled.div`

@@ -3,12 +3,15 @@ import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import { useTrendingStore } from '../store';
+import { IStyledProps } from '../interfaces/cssComponentStyles';
+
+
 
 const AppLayout = () => {
   const theme = useTrendingStore(store => store.theme);
 
 	return (
-		<AppLayoutContainer setting={theme}>
+		<AppLayoutStyles setting={theme}>
       <HeaderStyles>
         <Header/>
       </HeaderStyles>
@@ -18,14 +21,14 @@ const AppLayout = () => {
             <Outlet />
           </main>
         </SidebarAndMainContentStyles>
-    </AppLayoutContainer>
+    </AppLayoutStyles>
 	);
 };
 
 export default AppLayout;
 
 // Styled Components
-const AppLayoutContainer = styled.div`
+const AppLayoutStyles = styled.div<IStyledProps>`
 grid-template-columns: 1fr;
 height: 100%;
 ${props => props.setting === 'light' ?  'background-color: var(--color-white-100)' : 'background-color: var(--color-indigo-50)'};

@@ -10,7 +10,7 @@ const Settings = () => {
   const toggleLanguage = useTrendingStore(store => store.toggleLanguage);
 
 	return (
-		<SettingsStyles theme={theme}>
+		<SettingsStyles>
       <DarkModeSwitch style={{ marginBottom: '2rem' }}
       checked={theme === 'dark'}
       onChange={() => ''}

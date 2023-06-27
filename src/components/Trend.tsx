@@ -6,6 +6,7 @@ import moment from 'moment';
 import Views from './Views';
 import CommentsIcon from './CommentsIcon';
 import { useComments } from '../hooks/useComments';
+import { IStyledProps} from '../interfaces/cssComponentStyles';
 
 interface Props {
 	// trend
@@ -92,7 +93,7 @@ const Trend = ({
 export default Trend;
 
 // CSS Components
-export const TrendStyles = styled.div`
+export const TrendStyles = styled.div<IStyledProps>`
 	${(props) =>
 		props.setting === 'light'
 			? 'box-shadow: 0.1px 0.1px 4px 0.1px var(--color-pink-50)'

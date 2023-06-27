@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Comment } from "../interfaces/comment";
 import { useTrendingStore } from "../store";
 import moment from 'moment';
+import { IStyledProps } from "../interfaces/cssComponentStyles";
 
 interface Props{
   comment: Comment;
@@ -20,7 +21,7 @@ const CommentComponent = ({ comment }: Props) => {
 export default CommentComponent;
 
 //CSS Components
-const CommentStyles = styled.div`
+const CommentStyles = styled.div<IStyledProps>`
   display: flex;
   ${(props) =>
 		props.setting === 'light'
