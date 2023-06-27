@@ -11,4 +11,4 @@ navigate into the directory and run <br>
 npm install
 npm run dev 
 ```
-app will be live on localhost:5173.
+App will be live on localhost:5173.
