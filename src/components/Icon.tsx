@@ -6,7 +6,7 @@ interface Props {
 }
 
 const Icon = ({ icon }: Props) => {
-	const icons = {
+	const icons: any = {
 		movie: <TbMovie />,
 		clothing: <TbShirtFilled />,
 		music: <TbMusic />,

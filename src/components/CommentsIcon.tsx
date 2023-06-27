@@ -5,7 +5,7 @@ import { Comment } from '../interfaces/comment';
 
 interface Props {
 	id: number;
-	comments?: Comment[];
+	comments?: Comment[] | any;
 }
 const CommentsIcon = ({ id, comments }: Props) => {
 	// console.log('comments: ', comments);

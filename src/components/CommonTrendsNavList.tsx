@@ -13,7 +13,7 @@ interface Props {
 const CommonTrendsNavList = () => {
 	const navigate = useNavigate();
   const theme = useTrendingStore(store => store.theme);
-  const navLinks = useTrendingStore(store => store.navLinks);
+  const navLinks: any = useTrendingStore(store => store.navLinks);
   const language = useTrendingStore(store => store.language);
 
   // Temporary: data will be stored on backend.

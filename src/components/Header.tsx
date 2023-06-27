@@ -9,7 +9,7 @@ const Header = () => {
 	const theme = useTrendingStore((store) => store.theme);
 	const authToken = useTrendingStore((store) => store.authToken);
 	const language = useTrendingStore((store) => store.language);
-	const navLinks = useTrendingStore((store) => store.navLinks);
+	const navLinks: any = useTrendingStore((store) => store.navLinks);
 	const headerLinks = {
     logo: navLinks[language].logo,
 		create: navLinks[language].create,
@@ -99,7 +99,7 @@ const HeaderStyles = styled.div<IStyledProps>`
 	}
 `;
 
-const NavLinkStyles = styled.div<IThemeSettingStyle>`
+const NavLinkStyles = styled.div<IStyledProps>`
 	display: flex;
 	align-items: flex-end;
 	gap: 0.7rem;

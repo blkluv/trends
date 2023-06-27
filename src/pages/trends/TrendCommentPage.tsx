@@ -21,7 +21,7 @@ const TrendCommentPage = () => {
 	const username = useTrendingStore((store) => store.username);
 	const authToken = useTrendingStore((store) => store.authToken);
 	const { data: comments } = useComments();
-	const filteredComments = comments?.filter(
+	const filteredComments: any = comments?.filter(
 		(comment) => comment['trend_id'] === id
 	);
 

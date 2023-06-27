@@ -144,11 +144,6 @@ const StyledButton = styled.button<IStyledProps>`
 	${(props) => 'margin: ' + props.margin};
 	${(props) => 'color: ' + props.color};
 	${(props) => 'border: ' + props.border};
-
- /*  &:hover{
-    ${(props) => 'border: ' + props.borderHover};
-    ${(props) => 'color: ' + props.colorHover};
-  } */
 `;
 
 const StyledDiv = styled.div`

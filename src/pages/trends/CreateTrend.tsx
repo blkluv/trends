@@ -23,6 +23,7 @@ const CreateTrend = () => {
   const { isSuccess, isError, error, mutate } = useMutation({
     mutationFn: (trend: TrendData) => createTrend(trend),
   });
+  const err: any = error;
 
 	const onSubmit = ({ content, image, title, category, privacy }: FieldValues) => {
 		setCategory(category);
@@ -42,7 +43,7 @@ const CreateTrend = () => {
 	};
 
   if(isError)
-    toast.error('Something went wrong...' + error.message)
+    toast.error('Something went wrong...' + err.message)
   
   if(isSuccess){
     toast.success('Creating new trend...');

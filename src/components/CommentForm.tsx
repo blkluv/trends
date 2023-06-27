@@ -19,10 +19,10 @@ const CommentForm = ({ username, id }: Props) => {
 	const { register, handleSubmit } = useForm();
 	const {
 		isError: isCommentError,
-		error: commentError,
+		error: commentErr,
 		mutate: mutateComments,
 	} = useMutateComments();
-
+  const commentError: any = commentErr;
 	// Commenting
 	const onSubmitComment = ({ commentContent }: FieldValues) => {
 		const newComment = {

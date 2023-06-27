@@ -15,7 +15,7 @@ function App() {
 
 	// initialize comments in TrendingStore
 	const setComments = useTrendingStore((store) => store.setComments);
-	getComments().then((comments) => setComments(comments));
+	getComments().then((comments: any) => setComments(comments));
   // initialize trends in TrendingStore
   const setTrends = useTrendingStore( store => store.setTrends);
   getTrends().then(trends => setTrends(trends));

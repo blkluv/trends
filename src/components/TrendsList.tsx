@@ -12,6 +12,7 @@ interface Props {
 const TrendsList = ({ trendType }: Props) => {
 	const theme = useTrendingStore((store) => store.theme);
 	const { data: trends, isLoading, isError, error } = useTrends();
+  const err: any = error;
 	const filteredTrends = filterTrendsByCategory(trendType, trends);
 	const heading = (
 		<HeadingStyles setting={theme}>
@@ -22,7 +23,7 @@ const TrendsList = ({ trendType }: Props) => {
 	if (isLoading) return <p>'Loading...'</p>;
 
 	if (isError) {
-		toast.error(error.message);
+		toast.error(err.message);
 		return <p>'Something went wrong...'</p>;
 	}
 

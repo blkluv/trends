@@ -14,10 +14,10 @@ const Vote = ({ likes, dislikes, id }: Props) => {
 	const [gaveLikeOrDislike, setGaveLikeOrDislike] = useState(false);
   const {
 		isError: isVoteError,
-		error: voteError,
+		error,
 		mutate: mutateLikesOrDislikes,
 	} = useMutateVotes(id);
-
+  const voteError: any = error;
 	// Voting
 	const vote = (type: string) => {
 		// Can only vote once.
