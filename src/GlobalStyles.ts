@@ -21,6 +21,7 @@ height: 100%;
 --color-pink-50: #ff00887f;
 --color-pink-100: #ff0088;
 
+--color-purple-10: rgb(255, 221, 255);
 --color-purple-50: rgb(229, 216, 255);
 
 --color-green-100: #01c58e;

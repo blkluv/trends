@@ -3,7 +3,7 @@ import Trend from './Trend';
 import styled from 'styled-components';
 import { useTrendingStore } from '../store';
 import { useTrends } from '../hooks/useTrends.ts';
-import { filterTrendsByCategory } from '../utility/helpers.ts';
+import { filterTrendsByCategory } from '../utility/filters.ts';
 import { IStyledProps } from '../interfaces/cssComponentStyles.ts';
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 const TrendsList = ({ trendType }: Props) => {
 	const theme = useTrendingStore((store) => store.theme);
 	const { data: trends, isLoading, isError, error } = useTrends();
-  const err: any = error;
+	const err: any = error;
 	const filteredTrends = filterTrendsByCategory(trendType, trends);
 	const heading = (
 		<HeadingStyles setting={theme}>

@@ -1,5 +1,5 @@
 import { FaRegComments } from 'react-icons/fa';
-import { totalTrendComments } from '../utility/helpers';
+import { totalTrendComments } from '../utility/filters';
 import styled from 'styled-components';
 import { Comment } from '../interfaces/comment';
 

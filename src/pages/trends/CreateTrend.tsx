@@ -111,14 +111,13 @@ export default CreateTrend;
 
 export const Heading = styled.h1`
 	font-size: 1.6rem;
-	color: var(--color-grey-500);
 	text-align: center;
 `;
 
 export const FormControl = styled.div`
 	display: flex;
 	flex-direction: column;
-
+  
   .privacy{
     display: flex;
     margin: 0;
@@ -127,11 +126,11 @@ export const FormControl = styled.div`
   }
 
   .private, .public{
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
 
   .small-text{
-    font-size: 0.6rem;
+    font-size: 0.5rem;
   }
 `;
 

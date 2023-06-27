@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { FaChartBar } from 'react-icons/fa';
-import { useEffect  } from 'react';
+import { useEffect } from 'react';
 import { updateViewCount } from '../services/apiTrends';
 import { useTrendingStore } from '../store';
-import { filterTrendsById } from '../utility/helpers';
+import { filterTrendsById } from '../utility/filters';
 import { Trend } from '../interfaces/trend';
 
 interface Props {

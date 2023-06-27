@@ -5,7 +5,7 @@ import { login, signUp } from '../services/apiAuth';
 import toast from 'react-hot-toast';
 import { useTrendingStore } from '../store';
 import { FaMapSigns } from 'react-icons/fa';
-import { executeInTryCatchBlock } from '../utility/tryCatchHelpers';
+import { executeInTryCatchBlock } from '../utility/tryCatchHelper';
 import { useState } from 'react';
 import { IStyledProps } from '../interfaces/cssComponentStyles';
 
@@ -112,7 +112,7 @@ const StyledForm = styled.div`
 
 	label {
 		font-size: 0.7rem;
-		color: var(--color-grey-500);
+		color: var(--color-black-100);
 	}
 
 	input {
@@ -124,7 +124,7 @@ const StyledForm = styled.div`
 	}
 
 	input:focus {
-		background-color: rgb(255, 221, 255);
+		background-color: var(--color-purple-10);
 		/* var(--color-black-50) */
 		outline: none;
 	}

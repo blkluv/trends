@@ -11,6 +11,7 @@ const Settings = () => {
 
 	return (
 		<SettingsStyles>
+      <h2>Settings</h2>
       <DarkModeSwitch style={{ marginBottom: '2rem' }}
       checked={theme === 'dark'}
       onChange={() => ''}
@@ -40,6 +41,7 @@ const SettingsStyles = styled.div`
   button:hover{
     border: 1px solid var(--color-pink-100);
     color: var(--color-pink-100);
+    background-color: transparent;
   }
 
   .settings{

@@ -8,7 +8,7 @@ export const StyledForm = styled.div<IStyledProps>`
   
 	label {
 		font-size: 0.95rem;
-		color: var(--color-grey-500);
+		color: var(--color-black-100);
 	}
 
 	textarea,
