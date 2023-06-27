@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { FaChartBar } from 'react-icons/fa';
-import { useEffect, useState } from 'react';
+import { useEffect  } from 'react';
 import { updateViewCount } from '../services/apiTrends';
 import { useTrendingStore } from '../store';
 import { filterTrendsById } from '../utility/helpers';

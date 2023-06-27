@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { FcComboChart } from 'react-icons/fc';
 import { useTrendingStore } from '../store';
 import { IStyledProps } from '../interfaces/cssComponentStyles';

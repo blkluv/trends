@@ -5,10 +5,6 @@ import { useTrendingStore } from '../store';
 import { IStyledProps} from '../interfaces/cssComponentStyles';
 
 
-interface Props {
-	trends: string[];
-}
-
 // Trends for sidebar
 const CommonTrendsNavList = () => {
 	const navigate = useNavigate();

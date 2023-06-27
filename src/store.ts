@@ -19,7 +19,7 @@ interface TrendingStore{
   toggleLanguage: () => void;
 }
 
-export const useTrendingStore = create<TrendingStore>( (set, get) => {
+export const useTrendingStore = create<TrendingStore>( (set): any => {
   return {
     theme: 'dark', 
     authToken: '', 
@@ -43,14 +43,6 @@ export const useTrendingStore = create<TrendingStore>( (set, get) => {
     setComments: (comments: Comment[]) => set( (store) => ({...store, comments})),
     setTrends: (trends: Trend[]) => set((store) => ({...store, trends})),
     toggleLanguage: () => set(store => ({...store, language: store.language === 'english' ? 'japanese' : 'english'})),
-    action: () => {
-      const theme = get().theme;
-      const authToken = get().authToken;
-      const username = get().username;
-      const comments = get().comments;
-      const trends = get().trends;
-      const navLinks = get().navLinks;
-      const language = get().language;
-    }
+   
   }
 });

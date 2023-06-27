@@ -1,4 +1,4 @@
-import { FaHeart, FaRegHeart, FaHeartBroken } from 'react-icons/fa';
+import { FaHeart, FaHeartBroken } from 'react-icons/fa';
 import { useMutateVotes } from '../hooks/useMutateVotes';
 import toast from 'react-hot-toast';
 import { useState } from 'react';

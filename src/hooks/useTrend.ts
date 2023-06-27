@@ -1,5 +1,4 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getComments } from "../services/apiComments";
+import { useQuery } from "@tanstack/react-query";
 import { getTrend} from "../services/apiTrends";
 
 export const useTrend = (trendId: number) => {

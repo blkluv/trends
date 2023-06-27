@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { createTrend } from '../../services/apiTrends';
 import { useMutation } from '@tanstack/react-query';
 import { TrendData } from '../../interfaces/trend';
-import { useNavigate, redirect, NavLink } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import { useState} from 'react';
 import { useTrendingStore } from '../../store';
 import { StyledForm } from '../../components/CssComponents/StyledComponents';

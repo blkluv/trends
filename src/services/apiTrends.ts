@@ -11,7 +11,7 @@ const sortTrends = (trends: Trend[]): Trend[] => {
 };
 
 export const getTrends = async () => {
-	const { data: trends, error } = await supabase
+	const { data, error } = await supabase
 		.from('trends')
 		.select('*')
 		.order('likes', { ascending: false });
@@ -21,7 +21,7 @@ export const getTrends = async () => {
 		throw error;
 	}
 
- 
+  const trends: any[] = data;
 	return sortTrends(trends);
 };
 
