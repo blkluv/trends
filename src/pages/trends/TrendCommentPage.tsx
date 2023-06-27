@@ -22,7 +22,7 @@ const TrendCommentPage = () => {
 	const authToken = useTrendingStore((store) => store.authToken);
 	const { data: comments } = useComments();
 	const filteredComments: any = comments?.filter(
-		(comment) => comment['trend_id'] === id
+		(comment: any) => comment['trend_id'] === id
 	);
 
 	const commentForm = authToken ? (
