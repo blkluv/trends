@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { TrendStyles } from '../../components/Trend';
 import styled from 'styled-components';
 import { useTrendingStore } from '../../store';
@@ -28,7 +28,7 @@ const TrendCommentPage = () => {
 	const commentForm = authToken ? (
 		<CommentForm username={username} id={id} />
 	) : (
-		<p className='login-message'>[Login to comment.]</p>
+		<p className='login-message'>[{<NavLink to="/auth">Login</NavLink>} to comment.]</p>
 	);
 
 	return (
