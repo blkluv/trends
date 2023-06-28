@@ -5,10 +5,12 @@ import styled from 'styled-components';
 
 const Logout = () => {
 	const setAuthToken = useTrendingStore(store => store.setAuthToken);
+	const setUsername = useTrendingStore(store => store.setUsername);
   const navigate = useNavigate();
 
   const confirmLogout = () => {
     setAuthToken('');
+    setUsername('');
     toast.success('Logged out. Redirecting back to home page...');
     setTimeout( () => navigate('/'), 2000);
   }
