@@ -24,10 +24,10 @@ const Vote = ({ likes, dislikes, id }: Props) => {
   const validateVoter = async() => {
     // Check if logged in
     if(!username)
-      return {isValid: false, invalidMessage: 'Only logged in users can vote. Please login to vote.'};
+      return {isValid: false, invalidMessage: 'Please login to vote.'};
     // Check if already voted
     if(await isAlreadyInVotedList(id, username)) 
-      return {isValid: false, invalidMessage: 'Only one vote is allowed per trend. You previously voted for this trend.'};
+      return {isValid: false, invalidMessage: 'Only one vote is allowed per trend. You already voted for this trend.'};
 
     return {isValid: true, invalidMessage: ''};
   }

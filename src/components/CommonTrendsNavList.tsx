@@ -17,6 +17,7 @@ const trends = [
 	{ id: '/clothing', type: navLinks[language].clothing, icon: 'clothing' },
 	{ id: '/movies', type: navLinks[language].movies, icon: 'movie' },
 	{ id: '/music', type: navLinks[language].music, icon: 'music' },
+	{ id: '/video-and-tv', type: navLinks[language].videoAndTv, icon: 'videoAndTv' },
 	{ id: '/technology', type: navLinks[language].technology, icon: 'technology' },
 ];
 

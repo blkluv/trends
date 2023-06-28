@@ -29,10 +29,10 @@ export const useTrendingStore = create<TrendingStore>( (set): any => {
     navLinks: {
         english: {
           logo: 'Trending',
-          clothing: 'clothing', music: 'music', movies: 'movies', technology: 'technology', create: 'create', settings: 'settings', login: 'login', logout: 'logout'
+          clothing: 'Clothing', music: 'Music', movies: 'Movies', videoAndTv: 'Video & TV', technology: 'Technology', create: 'Create', settings: 'Settings', login: 'Login', logout: 'Logout'
         }, 
         japanese: { 
-          clothing: '服装', music: '音楽', movies: '映画', technology: '技術', create: '投稿', settings: '設定', login: 'ログイン', logo: 'トレーディング', logout: 'ログアウト'
+          clothing: '服装', music: '音楽', movies: '映画', videoAndTv: 'ビデオとテレビ', technology: '技術', create: '投稿', settings: '設定', login: 'ログイン', logo: 'トレーディング', logout: 'ログアウト'
         }
       },
       language: 'english',

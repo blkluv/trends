@@ -1,4 +1,5 @@
-import { TbShirtFilled, TbMovie, TbMusic, TbCpu2 } from 'react-icons/tb';
+import { TbShirtFilled, TbMovie, TbMusic, TbCpu2, TbDeviceTv } from 'react-icons/tb';
+import { FaPhotoVideo } from 'react-icons/fa';
 import styled from 'styled-components';
 
 interface Props {
@@ -10,6 +11,7 @@ const Icon = ({ icon }: Props) => {
 		movie: <TbMovie />,
 		clothing: <TbShirtFilled />,
 		music: <TbMusic />,
+		videoAndTv: <TbDeviceTv />,
 		technology: <TbCpu2 />,
 	};
 

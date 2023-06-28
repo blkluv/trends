@@ -16,6 +16,7 @@ import Settings from './pages/Settings';
 import Auth from './pages/Auth';
 import Logout from './pages/Logout';
 import TrendCommentPage from './pages/trends/TrendCommentPage';
+import VideoAndTvTrends from './pages/trends/VideoAndTvTrends';
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -38,6 +39,7 @@ const Router = () => {
 						<Route path='create-trend' element={<CreateTrend />}></Route>
 						<Route path='clothing-trends' element={<ClothingTrends />}></Route>
 						<Route path='movies-trends' element={<MovieTrends />}></Route>
+						<Route path='video-and-tv-trends' element={<VideoAndTvTrends />}></Route>
 						<Route path='music-trends' element={<MusicTrends />}></Route>
 						<Route
 							path='technology-trends'
