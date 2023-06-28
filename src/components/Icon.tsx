@@ -1,5 +1,4 @@
 import { TbShirtFilled, TbMovie, TbMusic, TbCpu2, TbDeviceTv } from 'react-icons/tb';
-import { FaPhotoVideo } from 'react-icons/fa';
 import styled from 'styled-components';
 
 interface Props {
