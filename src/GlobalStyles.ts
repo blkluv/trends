@@ -23,15 +23,18 @@ height: 100%;
 
 --color-purple-10: rgb(255, 221, 255);
 --color-purple-50: rgb(229, 216, 255);
+--color-purple-500: #5a1de9;
 
 --color-green-100: #01c58e;
 
 --color-indigo-50:#5a92fa;
 --color-indigo-100:#0059ff;
+--color-indigo-500:#1e56ff;
 
 --color-light-blue-100:#00b3ff;
 
 --color-blue-50: #016cc327;
+--color-blue-100: #2b00ff;
 --color-blue-500: #016cc3;
 
 --color-white-100: white;
@@ -73,5 +76,14 @@ img{
 
 *:disabled{
   cursor: not-allowed;
+}
+
+a{
+  color: var(--color-indigo-500);
+  transition: all 0.3s;
+}
+
+a:hover{
+  color: var(--color-pink-100);
 }
 `;
