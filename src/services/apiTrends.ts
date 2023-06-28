@@ -51,6 +51,20 @@ export const createTrend = async (trend: TrendData) => {
 	return data;
 };
 
+export const updateViewCount = async(value: number, id: number) => {
+  const { data, error } = await supabase
+  .from('trends')
+  .update({ views: value })
+  .eq('id', id);
+
+  if (error) {
+		console.log(error);
+		throw error;
+	}
+
+  return data;
+}
+
 export const updateLikesOrDislikes = async (info: {id: number, value: number, type: 'likes' | 'dislikes'}) => {
   const {id, value, type} = info;
 	const { data, error } = await supabase
@@ -67,11 +81,14 @@ export const updateLikesOrDislikes = async (info: {id: number, value: number, ty
 	return data;
 };
 
-export const updateViewCount = async(value: number, id: number) => {
+// Voting List and Voting List helper functions
+export const updateVotedList = async(trendId: number, username: string) => {
+  const alreadyVotedList: string[] = await getVotedList(trendId);
   const { data, error } = await supabase
   .from('trends')
-  .update({ views: value })
-  .eq('id', id);
+  .update({ alreadyVotedList: [...alreadyVotedList, username] })
+  .eq('id', trendId)
+  .select()
 
   if (error) {
 		console.log(error);
@@ -79,4 +96,23 @@ export const updateViewCount = async(value: number, id: number) => {
 	}
 
   return data;
+}
+
+const getVotedList = async(trendId: number) => {
+  const { data: trends, error } = await supabase
+  .from('trends')
+  .select('alreadyVotedList')
+  .eq('id', trendId);
+
+  if (error) {
+   console.log(error);
+   throw error;
+  }
+  
+  return trends[0].alreadyVotedList;
+}
+
+export const isAlreadyInVotedList = async(trendId: number, username: string) => {
+  const alreadyVotedList: string[] = await getVotedList(trendId);
+  return alreadyVotedList.some(userString => userString === username );
 }

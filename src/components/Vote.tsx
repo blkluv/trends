@@ -3,6 +3,8 @@ import { useMutateVotes } from '../hooks/useMutateVotes';
 import toast from 'react-hot-toast';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { updateVotedList, isAlreadyInVotedList } from '../services/apiTrends';
+import { useTrendingStore } from '../store';
 
 interface Props{
   likes: number;
@@ -10,32 +12,45 @@ interface Props{
   id: number;
 }
 const Vote = ({ likes, dislikes, id }: Props) => {
+  const username = useTrendingStore(store => store.username);
   const [data, setData] = useState({ likes, dislikes });
-	const [gaveLikeOrDislike, setGaveLikeOrDislike] = useState(false);
   const {
 		isError: isVoteError,
 		error,
 		mutate: mutateLikesOrDislikes,
 	} = useMutateVotes(id);
   const voteError: any = error;
+
+  const validateVoter = async() => {
+    // Check if logged in
+    if(!username)
+      return {isValid: false, invalidMessage: 'Only logged in users can vote. Please login to vote.'};
+    // Check if already voted
+    if(await isAlreadyInVotedList(id, username)) 
+      return {isValid: false, invalidMessage: 'Only one vote is allowed per trend. You previously voted for this trend.'};
+
+    return {isValid: true, invalidMessage: ''};
+  }
+
 	// Voting
-	const vote = (type: string) => {
-		// Can only vote once.
-		if (gaveLikeOrDislike) return toast.error('Only one vote per trend.');
+	const vote = async(type: string) => {
+		
+    const {isValid, invalidMessage } = await validateVoter();
+    if(!isValid) return toast.error(invalidMessage);
+    // updates db list of who voted
+    updateVotedList(id, username);
 
 		if (isVoteError) return toast.error(voteError.message);
-
+ 
 		if (type === 'dislike') {
 			mutateLikesOrDislikes({ value: dislikes + 1, type: 'dislikes' });
 			setData({ ...data, dislikes: data.dislikes + 1 });
-		} else {
-			// (type === 'like')
+		} else {// (type === 'like')
 			mutateLikesOrDislikes({ value: likes + 1, type: 'likes' });
 			setData({ ...data, likes: data.likes + 1 });
 		}
 
 		toast.success('Voted');
-		setGaveLikeOrDislike(true);
 	};
   
   return ( <VoteStyles>
