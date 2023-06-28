@@ -6,7 +6,7 @@ A social networking site for rating and commenting on trends. Made with [React.j
 The site is live [here](https://trending-jade.vercel.app/).
 
 ## Install for development
-navigate into the directory and run <br>
+Download files, navigate into root directory, and then run <br>
 ```bash
 npm install
 npm run dev 
