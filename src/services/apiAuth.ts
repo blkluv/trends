@@ -19,9 +19,10 @@ console.log(data);
 return data;
 }
 
+
 export async function signUp({email, password}: Auth){
   
-let { data, error } = await supabase.auth.signUp({
+const { data, error } = await supabase.auth.signUp({
   email,
   password
 });
