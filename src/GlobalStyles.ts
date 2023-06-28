@@ -80,7 +80,6 @@ img{
 
 a{
   color: var(--color-indigo-500);
-  transition: all 0.3s;
 }
 
 a:hover{
