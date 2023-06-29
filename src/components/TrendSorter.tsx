@@ -4,14 +4,14 @@ import { SortTrendsBy } from '../types/sortTrendsBy';
 import styled from 'styled-components';
 
 const TrendSorter = () => {
-	const setFeaturedTrendsSortBy = useTrendingStore(
+	const setSortTrendsBy = useTrendingStore(
 		(store) => store.setSortTrendsBy
 	);
 
 	const onSortTrends = (e: ChangeEvent<HTMLSelectElement>) => {
 		e.preventDefault;
 		const sortValue = e.currentTarget.value as SortTrendsBy;
-		setFeaturedTrendsSortBy(sortValue);
+		setSortTrendsBy(sortValue);
 	};
 	return (
 		<TrendSorterStyles>
