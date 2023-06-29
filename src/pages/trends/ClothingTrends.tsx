@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
+/* import { useEffect } from 'react'; */
 import TrendsList from '../../components/TrendsList';
-import { useTrendingStore } from '../../store';
+/* import { useTrendingStore } from '../../store'; */
 
 const ClothingTrends = () => {
-  const setSortTrendsBy = useTrendingStore(store => store.setSortTrendsBy);
-  useEffect(() => setSortTrendsBy('likesToDislikesRatio'), []);
+  /* const setSortTrendsBy = useTrendingStore(store => store.setSortTrendsBy);
+  useEffect(() => setSortTrendsBy('likesToDislikesRatio'), []); */
   console.log('hi');
 	return (
 		<div>
