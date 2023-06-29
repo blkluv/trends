@@ -24,9 +24,11 @@ const CreateTrend = () => {
     mutationFn: (trend: TrendData) => createTrend(trend),
   });
   const err: any = error;
-
+  const kebabCaseify = (str: string) => {
+    return str.split(' ').join('-');
+  }
 	const onSubmit = ({ content, image, title, category, privacy }: FieldValues) => {
-		setCategory(category);
+		setCategory(kebabCaseify(category));
 
 		const newTrend = {
 			content,
@@ -83,10 +85,11 @@ const CreateTrend = () => {
 				<FormControl>
           <label id='category' htmlFor='category'>Category</label>
 					<select id='category' {...register('category')}>
-						<option value='clothing'>clothing</option>
-						<option value='movies'>movies</option>
-						<option value='music'>music</option>
-						<option value='technology'>technology</option>
+						<option value='clothing'>Clothing</option>
+						<option value='movies'>Movies</option>
+						<option value='music'>Music</option>
+						<option value='video and tv'>Video and TV</option>
+						<option value='technology'>Technology</option>
 					</select>
 				</FormControl>
 				<FormControl>
