@@ -1,10 +1,11 @@
 import { Trend } from "../interfaces/trend";
 import { totalTrendComments } from "./filters";
 import { Comment } from '../interfaces/comment';
+import { SortTrendsBy } from "../types/sortTrendsBy";
 
 // ! Simplify this into an object or call dynamically with sortType to reduce if statements
 export const sortTrendsBy = (
-	sortType: 'likesToDislikesRatio' | 'likes' | 'dislikes' | 'comments' | 'views',
+	sortType: SortTrendsBy,
 	trends: Trend[], comments?: Comment[]
 ) => {
   console.log('sortType : ', sortType);
