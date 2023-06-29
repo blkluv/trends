@@ -19,6 +19,8 @@ const Auth = () => {
 	const setUsername = useTrendingStore((store) => store.setUsername);
 	const navigate = useNavigate();
 
+  const switchKebabToSpaces = (str: string) => str.split('-').join(' ');
+
 	const onLoginOrSignUp = async ({ email, password }: FieldValues) => {
 		const username = email.split('@')[0];
 		// sign up
@@ -50,7 +52,7 @@ const Auth = () => {
 
 	return (
 		<StyledForm>
-			<Heading>{authType}</Heading>
+			<Heading>{switchKebabToSpaces(authType)}</Heading>
 			<form onSubmit={handleSubmit(onLoginOrSignUp)}>
 				<FormControl className='form-control'>
 					<label id='email' htmlFor='email'>
