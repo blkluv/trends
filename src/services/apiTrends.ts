@@ -1,4 +1,4 @@
-import { Trend, TrendData } from '../interfaces/trend';
+import { TrendData } from '../interfaces/trend';
 import { sortTrends } from '../utility/sorters';
 import supabase from './supabase';
 
