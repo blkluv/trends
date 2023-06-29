@@ -7,8 +7,8 @@ import { useEffect } from 'react';
 // Trends for homepage that are popular, new and interesting, or gaining many likes
 const FeaturedTrends = () => {
 	const theme = useTrendingStore((store) => store.theme);
-  const setFeaturedTrendsSortBy = useTrendingStore(store => store.setSortTrendsBy);
-  useEffect(() => setFeaturedTrendsSortBy('likesToDislikesRatio'));
+  const setSortTrendsBy = useTrendingStore(store => store.setSortTrendsBy);
+  useEffect(() => setSortTrendsBy('likesToDislikesRatio'));
 
 	return (
 		<FeaturedTrendsContainer setting={theme}>

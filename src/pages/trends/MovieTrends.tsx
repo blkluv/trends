@@ -3,8 +3,8 @@ import TrendsList from '../../components/TrendsList';
 import { useTrendingStore } from '../../store';
 
 const MovieTrends = () => {
-  const setFeaturedTrendsSortBy = useTrendingStore(store => store.setSortTrendsBy);
-  useEffect(() => setFeaturedTrendsSortBy('likesToDislikesRatio'));
+  const setSortTrendsBy = useTrendingStore(store => store.setSortTrendsBy);
+  useEffect(() => setSortTrendsBy('likesToDislikesRatio'));
 	return <TrendsList trendType='movies' />;
 };
 
