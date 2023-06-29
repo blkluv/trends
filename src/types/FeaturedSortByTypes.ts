@@ -1,1 +1,0 @@
-export type FeaturedSortByTypes = 'likes' | 'dislikes' | 'views' | 'comments' | 'likesToDislikesRatio';

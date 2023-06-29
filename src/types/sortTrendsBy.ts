@@ -1,0 +1,1 @@
+export type SortTrendsBy = 'likes' | 'dislikes' | 'views' | 'comments' | 'likesToDislikesRatio';

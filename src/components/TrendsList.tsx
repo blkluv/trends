@@ -16,7 +16,7 @@ const TrendsList = ({ trendType }: Props) => {
 	const theme = useTrendingStore((store) => store.theme);
   const comments = useTrendingStore(store => store.comments);
   const trendsSortBy = useTrendingStore(
-		(store) => store.featuredTrendsSortBy
+		(store) => store.sortTrendsBy
 	);
 	const { data: trends, isLoading, isError, error } = useTrends();
 	const err: any = error;
