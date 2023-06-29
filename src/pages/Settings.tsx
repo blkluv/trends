@@ -19,7 +19,7 @@ const Settings = () => {
 			<ul className='settings'>
 				<button onClick={toggleTheme}>{ theme === 'light' ? 'Dark' : 'Light'} Theme</button>
 				<button onClick={toggleLanguage}>{ language === 'english' ? '日本語' : 'English'}</button>
-				<li>Setting 3 - Coming soon.</li>
+				<li>Setting 3 - Coming soon</li>
 			</ul>
 		</SettingsStyles>
 	);
