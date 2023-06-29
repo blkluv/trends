@@ -3,6 +3,12 @@ import TrendsList from '../../components/TrendsList';
 import { useTrendingStore } from '../../store';
 import { IStyledProps } from '../../interfaces/cssComponentStyles';
 
+interface Props{
+  views: number;
+  comments: number;
+  likesMinusDislikes: number;
+  trendType: 'most-liked' | 'most-hated' | 'most-viewed' | 'most-comments';
+}
 // Trends for homepage that are popular, new and interesting, or gaining many likes
 const FeaturedTrends = () => {
   const theme = useTrendingStore(store => store.theme);
