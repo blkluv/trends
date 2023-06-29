@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 const FeaturedTrends = () => {
 	const theme = useTrendingStore((store) => store.theme);
   const setSortTrendsBy = useTrendingStore(store => store.setSortTrendsBy);
-  useEffect(() => setSortTrendsBy('likesToDislikesRatio'));
+  useEffect(() => setSortTrendsBy('likesToDislikesRatio'),[]);
 
 	return (
 		<FeaturedTrendsContainer setting={theme}>

@@ -4,7 +4,7 @@ import { useTrendingStore } from '../../store';
 
 const MusicTrends = () => {
   const setSortTrendsBy = useTrendingStore(store => store.setSortTrendsBy);
-  useEffect(() => setSortTrendsBy('likesToDislikesRatio'));
+  useEffect(() => setSortTrendsBy('likesToDislikesRatio'),[]);
 	return <TrendsList trendType='music' />;
 };
 
