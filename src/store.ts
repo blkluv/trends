@@ -18,7 +18,7 @@ interface TrendingStore {
 	getTheme: () => string;
 	setComments: (comments: Comment[]) => void;
 	setTrends: (trends: Trend[]) => void;
-	setFeaturedTrendsSortBy: (sortTrendsBy: SortTrendsBy) => void;
+	setSortTrendsBy: (sortTrendsBy: SortTrendsBy) => void;
 	toggleLanguage: () => void;
 }
 
@@ -70,7 +70,7 @@ export const useTrendingStore = create<TrendingStore>((set): any => {
 		setComments: (comments: Comment[]) =>
 			set((store) => ({ ...store, comments })),
 		setTrends: (trends: Trend[]) => set((store) => ({ ...store, trends })),
-		setFeaturedTrendsSortBy: (sortTrendsBy: SortTrendsBy) =>
+		setSortTrendsBy: (sortTrendsBy: SortTrendsBy) =>
 			set((store) => ({ ...store, sortTrendsBy })),
 		toggleLanguage: () =>
 			set((store) => ({

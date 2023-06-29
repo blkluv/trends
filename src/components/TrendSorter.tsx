@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 const TrendSorter = () => {
 	const setFeaturedTrendsSortBy = useTrendingStore(
-		(store) => store.setFeaturedTrendsSortBy
+		(store) => store.setSortTrendsBy
 	);
 
 	const onSortTrends = (e: ChangeEvent<HTMLSelectElement>) => {
