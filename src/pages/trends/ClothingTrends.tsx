@@ -1,7 +1,15 @@
+import { useEffect } from 'react';
 import TrendsList from '../../components/TrendsList';
+import { useTrendingStore } from '../../store';
 
 const ClothingTrends = () => {
-	return <TrendsList trendType='clothing' />;
+  const setFeaturedTrendsSortBy = useTrendingStore(store => store.setFeaturedTrendsSortBy);
+  useEffect(() => setFeaturedTrendsSortBy('likesToDislikesRatio'));
+	return (
+		<div>
+			<TrendsList trendType='clothing'/>
+		</div>
+	);
 };
 
 export default ClothingTrends;

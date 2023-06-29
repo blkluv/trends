@@ -11,7 +11,6 @@ import Views from '../../components/Views';
 import CommentsIcon from '../../components/CommentsIcon';
 import { IStyledProps } from '../../interfaces/cssComponentStyles';
 
-// ! Investigate why the comments icon is rendered out the number of times as there are posts when navigating to this page, but only when user is logged in. When not logged in, the comments are only rendered out once, as expected.
 const TrendCommentPage = () => {
 	const location = useLocation();
 	const { author, created_at, title, content, image, likes, dislikes, id } =

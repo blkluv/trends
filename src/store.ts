@@ -1,21 +1,25 @@
 import { create } from "zustand";
 import { Comment } from "./interfaces/comment";
 import { Trend } from "./interfaces/trend";
+import { FeaturedSortByTypes } from "./types/FeaturedSortByTypes";
+
 
 interface TrendingStore{
   theme: string; // theme type
   authToken: string; // logged in or not(no auth token)
   username: string; // current user
-  comments: Comment[],
-  trends: Trend[],
-  navLinks: {[key: string]: string}, // header and sidebar
-  language: 'japanese' | 'english',
+  comments: Comment[];
+  trends: Trend[];
+  featuredTrendsSortBy: FeaturedSortByTypes;
+  navLinks: {[key: string]: string}; // header and sidebar
+  language: 'japanese' | 'english';
   toggleTheme: () => void;
   setAuthToken: (authToken: string) => void; 
   setUsername: (username: string) => void;
   getTheme: () => string;
   setComments: (comments: Comment[]) => void;
   setTrends: (trends: Trend[]) => void;
+  setFeaturedTrendsSortBy: (featuredTrendsSortBy: FeaturedSortByTypes) => void;
   toggleLanguage: () => void;
 }
 
@@ -26,6 +30,7 @@ export const useTrendingStore = create<TrendingStore>( (set): any => {
     username: '', 
     comments: [], 
     trends: [], 
+    featuredTrendsSortBy: '',
     navLinks: {
         english: {
           logo: 'Trending',
@@ -42,6 +47,8 @@ export const useTrendingStore = create<TrendingStore>( (set): any => {
     setUsername: (name: string) => set((store) => ({...store, username: name})),
     setComments: (comments: Comment[]) => set( (store) => ({...store, comments})),
     setTrends: (trends: Trend[]) => set((store) => ({...store, trends})),
+    setFeaturedTrendsSortBy: (featuredTrendsSortBy: FeaturedSortByTypes) => 
+      set((store) => ({...store, featuredTrendsSortBy})),
     toggleLanguage: () => set(store => ({...store, language: store.language === 'english' ? 'japanese' : 'english'})),
    
   }

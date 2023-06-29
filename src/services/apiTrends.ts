@@ -1,14 +1,8 @@
 import { Trend, TrendData } from '../interfaces/trend';
+import { sortTrends } from '../utility/sorters';
 import supabase from './supabase';
 
-// sorts by best ratio of likes to dislikes. (Eg 5-likes - 3-dislikes --> receives a score of 2)
-const sortTrends = (trends: Trend[]): Trend[] => {
-	const compareFn = (
-		x: Trend,
-		y: Trend,
-	) => ( (y.likes - y.dislikes) - (x.likes - x.dislikes));
-	return trends.sort(compareFn);
-};
+
 
 export const getTrends = async () => {
 	const { data, error } = await supabase

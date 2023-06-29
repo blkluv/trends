@@ -4,13 +4,20 @@ import styled from 'styled-components';
 import { useTrendingStore } from '../store';
 import { useTrends } from '../hooks/useTrends.ts';
 import { filterTrendsByCategory } from '../utility/filters.ts';
+import { sortTrendsBy } from '../utility/sorters.ts';
 import { IStyledProps } from '../interfaces/cssComponentStyles.ts';
+import TrendSorter from './TrendSorter.tsx';
 
 interface Props {
 	trendType: string;
+  /* trendsSortBy?: 'likes' | 'dislikes' | 'views' | 'comments' | 'likesToDislikesRatio'; */
 }
 const TrendsList = ({ trendType }: Props) => {
 	const theme = useTrendingStore((store) => store.theme);
+  const comments = useTrendingStore(store => store.comments);
+  const trendsSortBy = useTrendingStore(
+		(store) => store.featuredTrendsSortBy
+	);
 	const { data: trends, isLoading, isError, error } = useTrends();
 	const err: any = error;
 	const filteredTrends = filterTrendsByCategory(trendType, trends);
@@ -20,6 +27,8 @@ const TrendsList = ({ trendType }: Props) => {
 		</HeadingStyles>
 	);
 
+  if(trendsSortBy && trends) sortTrendsBy(trendsSortBy, trends, comments);
+
 	if (isLoading) return <p>'Loading...'</p>;
 
 	if (isError) {
@@ -27,30 +36,36 @@ const TrendsList = ({ trendType }: Props) => {
 		return <p>'Something went wrong...'</p>;
 	}
 
-	if (trendType === 'all')
+	if (trendType === 'all'){
 		return (
-			<TrendsListStyles>
-				{heading}
-				<div className='main-content'>
-					{trends?.map((trend) => (
-						<ul key={trend.image}>{<Trend {...trend} />}</ul>
-					))}
-				</div>
-			</TrendsListStyles>
+      <>
+        <TrendSorter/>
+              <TrendsListStyles>
+                {heading}
+                <div className='main-content'>
+                  {trends?.map((trend) => (
+                    <ul key={trend.image}>{<Trend {...trend} />}</ul>
+                  ))}
+                </div>
+              </TrendsListStyles>
+      </>
 		);
-
+          }
 	if (filteredTrends?.length === 0)
 		return <p>No trends for {trendType} yet. How about you make one?</p>;
 
 	return (
-		<TrendsListStyles>
-			{heading}
-			<div className='main-content'>
-				{filteredTrends?.map((trend) => (
-					<ul key={trend.image}>{<Trend {...trend} />}</ul>
-				))}
-			</div>
-		</TrendsListStyles>
+    <>
+      <TrendSorter/>
+          <TrendsListStyles>
+            {heading}
+            <div className='main-content'>
+              {filteredTrends?.map((trend) => (
+                <ul key={trend.image}>{<Trend {...trend} />}</ul>
+              ))}
+            </div>
+          </TrendsListStyles>
+    </>
 	);
 };
 
