@@ -56,9 +56,9 @@ const TrendsList = ({ trendType }: Props) => {
 
 	return (
     <>
-      <TrendSorter/>
           <TrendsListStyles>
             {heading}
+      <TrendSorter/>
             <div className='main-content'>
               {filteredTrends?.map((trend) => (
                 <ul key={trend.image}>{<Trend {...trend} />}</ul>
