@@ -3,7 +3,7 @@ import { FaChartBar } from 'react-icons/fa';
 import { useEffect } from 'react';
 import { updateViewCount } from '../services/apiTrends';
 import { useTrendingStore } from '../store';
-import { filterTrendsById } from '../utility/filters';
+import { findTrendById } from '../utility/filters';
 import { Trend } from '../interfaces/trend';
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
 
 const Views = ({ increaseViewsCount, trendId }: Props) => {
 	const trends = useTrendingStore<Trend[]>((store) => store.trends);
-	const trend = filterTrendsById(trendId, trends)[0];
+	const trend = findTrendById(trendId, trends);
 	// const { data: trend } = useTrend(trendId); // Unpredictable behavior here with React Query.
 
 	useEffect(() => {

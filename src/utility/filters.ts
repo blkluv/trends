@@ -7,6 +7,11 @@ export const filterTrendsByCategory = (category: string, trends?: Trend[]) => {
 	return trends?.filter((trend) => trend.category === category);
 };
 
+export const findTrendById = (id: number, trends?: Trend[]) => {
+
+	return trends?.find((trend) => trend.id === id);
+};
+
 export const filterTrendsById = (id: number, trends?: Trend[]) => {
 	if (!trends) return [];
 
