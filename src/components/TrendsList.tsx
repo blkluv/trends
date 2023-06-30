@@ -58,6 +58,7 @@ const TrendsList = ({ trendType }: Props) => {
     <>
           <TrendsListStyles>
             {heading}
+            {/* Works properly in dev build, but not production build for some reason. */}
       {/* <TrendSorter/> */}
             <div className='main-content'>
               {filteredTrends?.map((trend) => (

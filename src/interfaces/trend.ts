@@ -1,4 +1,4 @@
-export interface Trend{
+export interface Trend{ // Contains all data as on the server.
   id: number; // created on server
   created_at: Date; // created on server
 
@@ -10,6 +10,7 @@ export interface Trend{
   dislikes: number;
   category: string;
   views: number;
+  user_id: string;
 }
 
 // Same as Trend interface but without created_at and id, which are created on server

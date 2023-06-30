@@ -4,9 +4,8 @@ import { useTrendingStore } from '../../store';
 
 const ClothingTrends = () => {
   const setSortTrendsBy = useTrendingStore(store => store.setSortTrendsBy);
-  const sortTrendsBy = useTrendingStore(store => store.sortTrendsBy);
   useEffect(() => setSortTrendsBy('likesToDislikesRatio'), []);
-  console.log('sortTrendsBy in ClothingTrends: ', sortTrendsBy);
+ 
 	return (
 		<div>
 			<TrendsList trendType='clothing'/>

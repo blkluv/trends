@@ -17,6 +17,7 @@ const Auth = () => {
 	const authToken = useTrendingStore((store) => store.authToken);
 	const setAuthToken = useTrendingStore((store) => store.setAuthToken);
 	const setUsername = useTrendingStore((store) => store.setUsername);
+	const setUserId = useTrendingStore((store) => store.setUserId);
 	const navigate = useNavigate();
 
   const switchKebabToSpaces = (str: string) => str.split('-').join(' ');
@@ -35,9 +36,10 @@ const Auth = () => {
       const { session } = await login({ email, password });
 			
       if (!session) return toast.error('No session available...');
-			
+			console.log('session: ', session);
       setAuthToken(session?.access_token);
 			setUsername(username);
+      setUserId(session?.user.id);
 			toast.success('Logged in. Redirecting back to home page...');
 			setTimeout(() => navigate('/'), 2000);
       });

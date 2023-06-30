@@ -44,6 +44,20 @@ export const createTrend = async (trend: TrendData) => {
 
 	return data;
 };
+export const deleteTrend = async (trendId: number) => {
+  console.log('Deleting trend...', trendId);
+	const { error } = await supabase
+  .from('trends')
+  .delete()
+  .eq('id', trendId);
+
+	if (error) {
+		console.log(error);
+		throw error;
+	}
+};
+
+
 
 export const updateViewCount = async(value: number, id: number) => {
   const { data, error } = await supabase

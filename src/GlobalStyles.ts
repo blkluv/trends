@@ -38,6 +38,8 @@ height: 100%;
 --color-blue-500: #016cc3;
 
 --color-white-100: white;
+
+--color-alert-100: #bd2c2aba;
 }
 
 *,*::before, *::after{

@@ -19,6 +19,7 @@ const CreateTrend = () => {
   const username = useTrendingStore(store => store.username);
   const theme = useTrendingStore(store => store.theme);
   const authToken = useTrendingStore(store => store.authToken);
+  const user_id = useTrendingStore(store => store.user_id);
   console.log('theme: ', theme);
   const { isSuccess, isError, error, mutate } = useMutation({
     mutationFn: (trend: TrendData) => createTrend(trend),
@@ -38,6 +39,7 @@ const CreateTrend = () => {
 			likes: 0,
 			dislikes: 0,
 			author: privacy === 'private' ? 'anonymous' : username,
+      user_id
 		};
 		console.log('creating newTrend...', newTrend);
 

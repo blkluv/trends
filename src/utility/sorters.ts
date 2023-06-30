@@ -20,11 +20,12 @@ export const sortTrendsBy = (
 		sorterFn = (trend1: Trend, trend2: Trend) => (totalTrendComments(trend2.id, comments) - totalTrendComments(trend1.id, comments));
 
   if(sortType === 'likesToDislikesRatio')
-    return sortTrends(trends); // trends are currently(June 29th, 2023) sorted this way by default, so do nothing.
+    return sortTrends(trends);
   
 	return trends.sort(sorterFn);
 };
 
+// ! Change the name to something more descriptive like sortTrendsByPopularity
 // sorts by best ratio of likes to dislikes. (Eg 5-likes - 3-dislikes --> receives a score of 2)
 export const sortTrends = (trends: Trend[]): Trend[] => {
 	const compareFn = (

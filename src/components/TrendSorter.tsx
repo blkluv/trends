@@ -35,12 +35,18 @@ const TrendSorterStyles = styled.div`
 	.sortBy {
 		margin-bottom: 0.5rem;
 		font-size: 0.7rem;
+    
 		select {
 			box-sizing: border-box;
 			padding: 0.1rem;
 			border-radius: 0.2rem;
 			background-color: #ffffff;
 			outline: none;
+     
 		}
+    select:hover,option:hover{
+      cursor: pointer;
+      
+    }
 	}
 `;

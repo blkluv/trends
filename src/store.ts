@@ -7,17 +7,19 @@ interface TrendingStore {
 	theme: string; // theme type
 	authToken: string; // logged in or not(no auth token)
 	username: string; // current user
+  user_id: string;// necessary for auth check on backend when deleting
 	comments: Comment[];
 	trends: Trend[];
 	sortTrendsBy: SortTrendsBy;
-	navLinks: { [key: string]: string }; // header and sidebar
+	navLinks: { [key: string]: string }; // header and sidebar - here for switching between languages
 	language: 'japanese' | 'english';
 	toggleTheme: () => void;
 	setAuthToken: (authToken: string) => void;
+  setUserId: (user_id: string) => void;
 	setUsername: (username: string) => void;
-	getTheme: () => string;
 	setComments: (comments: Comment[]) => void;
 	setTrends: (trends: Trend[]) => void;
+  // deleteTrend: (id: number) => void;
 	setSortTrendsBy: (sortTrendsBy: SortTrendsBy) => void;
 	toggleLanguage: () => void;
 }
@@ -27,6 +29,7 @@ export const useTrendingStore = create<TrendingStore>((set): any => {
 		theme: 'dark',
 		authToken: '',
 		username: '',
+    user_id: '',
 		comments: [],
 		trends: [],
 		sortTrendsBy: '',
@@ -42,8 +45,10 @@ export const useTrendingStore = create<TrendingStore>((set): any => {
 				settings: 'Settings',
 				login: 'Login',
 				logout: 'Logout',
+        userDashboard: 'Dashboard'
 			},
 			japanese: {
+				logo: 'トレーディング',
 				clothing: '服装',
 				music: '音楽',
 				movies: '映画',
@@ -52,8 +57,8 @@ export const useTrendingStore = create<TrendingStore>((set): any => {
 				create: '投稿',
 				settings: '設定',
 				login: 'ログイン',
-				logo: 'トレーディング',
 				logout: 'ログアウト',
+        userDashboard: 'ダッシュボード',
 			},
 		},
 		language: 'english',
@@ -67,9 +72,12 @@ export const useTrendingStore = create<TrendingStore>((set): any => {
 			set((store) => ({ ...store, authToken: newAuthToken })),
 		setUsername: (name: string) =>
 			set((store) => ({ ...store, username: name })),
+		setUserId: (user_id: string) =>
+			set((store) => ({ ...store, user_id })),
 		setComments: (comments: Comment[]) =>
 			set((store) => ({ ...store, comments })),
 		setTrends: (trends: Trend[]) => set((store) => ({ ...store, trends })),
+    // deleteTrend: (idToDelete: number) => set((store) => ({...store.trends.filter(trend => trend.id !== idToDelete)})),
 		setSortTrendsBy: (sortTrendsBy: SortTrendsBy) =>
 			set((store) => ({ ...store, sortTrendsBy })),
 		toggleLanguage: () =>

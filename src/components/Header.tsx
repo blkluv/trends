@@ -16,6 +16,7 @@ const Header = () => {
 		settings: navLinks[language].settings,
 		login: navLinks[language].login,
     logout: navLinks[language].logout,
+    userDashboard: navLinks[language].userDashboard
 	};
 
 	return (
@@ -33,6 +34,9 @@ const Header = () => {
 				<NavLink to='/settings'>{ headerLinks.settings}</NavLink>
 				<NavLink to='/auth' hidden={!!authToken}>
 					{!authToken && headerLinks.login}
+				</NavLink>
+				<NavLink to='/user-dashboard' hidden={!authToken}>
+					{authToken && headerLinks.userDashboard}
 				</NavLink>
 				<NavLink to='/logout' hidden={!authToken}>
 					{authToken && headerLinks.logout}

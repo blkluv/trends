@@ -17,11 +17,12 @@ import Auth from './pages/Auth';
 import Logout from './pages/Logout';
 import TrendCommentPage from './pages/trends/TrendCommentPage';
 import VideoAndTvTrends from './pages/trends/VideoAndTvTrends';
+import UserDashboard from './pages/UserDashboard';
 
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {
-			staleTime: 0, // 1min
+			staleTime: 0,
 		},
 	},
 });
@@ -50,6 +51,7 @@ const Router = () => {
 						<Route path='settings' element={<Settings />}></Route>
 						<Route path='auth' element={<Auth />}></Route>
 						<Route path='logout' element={<Logout />}></Route>
+            <Route path="user-dashboard" element={<UserDashboard/>}></Route>
 						<Route
 							path='suggest-trend-category'
 							element={<SuggestTrendCategory />}></Route>
