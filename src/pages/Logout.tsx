@@ -11,8 +11,8 @@ const Logout = () => {
   const confirmLogout = () => {
     setAuthToken('');
     setUsername('');
-    toast.success('Logged out. Redirecting back to home page...');
-    setTimeout( () => navigate('/'), 2000);
+    toast.success('Logged out');
+    navigate('/');
   }
 	return (
 		<>

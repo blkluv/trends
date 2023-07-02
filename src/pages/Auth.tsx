@@ -40,8 +40,8 @@ const Auth = () => {
       setAuthToken(session?.access_token);
 			setUsername(username);
       setUserId(session?.user.id);
-			toast.success('Logged in. Redirecting back to home page...');
-			setTimeout(() => navigate('/'), 2000);
+			toast.success('Logged in.');
+			navigate('/user-dashboard');
       });
 	};
 

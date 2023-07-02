@@ -1,8 +1,8 @@
 import { FieldValues, useForm } from 'react-hook-form';
-import { FormControl } from '../pages/trends/CreateTrend';
+import { FormControl } from './TrendForm';
 import { useMutateComments } from '../hooks/useMutateComments';
 import toast from 'react-hot-toast';
-import { Button } from '../pages/trends/CreateTrend';
+import { Button } from './TrendForm';
 import styled from 'styled-components';
 import { useTrendingStore } from '../store';
 import { IStyledProps } from '../interfaces/cssComponentStyles';

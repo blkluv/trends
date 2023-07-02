@@ -3,6 +3,7 @@ export interface Trend{ // Contains all data as on the server.
   created_at: Date; // created on server
 
   author: string;
+  author_privacy: string;
   content: string;
   image: string;
   alt: string;
@@ -21,4 +22,6 @@ export interface TrendData{
   alt: string;
   likes: number;
   dislikes: number;
+  author_privacy: string;
+  category: string;
   }
