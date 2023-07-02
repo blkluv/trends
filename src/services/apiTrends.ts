@@ -44,6 +44,32 @@ export const createTrend = async (trend: TrendData) => {
 
 	return data;
 };
+
+// content,
+// 			image,
+// 			alt: title,
+//       category,
+// 			likes: 0,
+// 			dislikes: 0,
+// 			author: privacy === 'private' ? 'anonymous' : username,
+//       author_privacy: initialFormFields?.author_privacy || privacy === 'private' ? 'private' : 'public',
+//       user_id
+export const updateTrend = async(trend: TrendData, trendId: number) => {
+  const {content, image, alt, category, author, author_privacy} = trend;
+  const { data, error } = await supabase
+  .from('trends')
+  .update({ content, image, alt, category, author, author_privacy })
+  .eq('id', trendId)
+  .select()
+
+  if (error) {
+		console.log(error);
+		throw error;
+	}
+
+	return data;
+}
+
 export const deleteTrend = async (trendId: number) => {
   console.log('Deleting trend...', trendId);
 	const { error } = await supabase
