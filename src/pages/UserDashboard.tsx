@@ -5,24 +5,39 @@ import moment from 'moment';
 import { deleteTrend } from '../services/apiTrends';
 import { useTrends } from '../hooks/useTrends';
 import { useState } from 'react';
-import { Trend } from '../interfaces/trend';
+import { Trend, TrendData } from '../interfaces/trend';
+import Modal from '../components/Modal';
+import TrendForm from '../components/TrendForm';
 
 const UserDashboard = () => {
 	const username = useTrendingStore((store) => store.username);
+	const user_id = useTrendingStore((store) => store.user_id);
 	const { data: dbTrends } = useTrends();
-	const [localTrends, setAllTrends] = useState(dbTrends);
+	const [localTrends, setLocalTrends] = useState(dbTrends);
+	const [showForm, setShowForm] = useState(false);
 	const filteredByUserTrends = filterTrendsByKeyValue(
-		'author',
-		username,
+		'user_id',
+		user_id,
 		localTrends
 	);
 
 	const onDeleteTrend = (trend: Trend) => {
 		deleteTrend(trend.id); // delete in db
-		setAllTrends(
+		setLocalTrends(
 			localTrends?.filter((localTrend) => localTrend.id !== trend.id)
 		); // delete locally
 	};
+
+	const toggleModal = () => {
+		setShowForm(!showForm);
+		return showForm;
+	};
+
+  const onSetLocalTrends = (trend: Trend, id: number) => {
+    const updatedTrends = filteredByUserTrends?.filter(trend => trend.id !== id);
+    console.log('updatedTrends: ', updatedTrends);
+    setLocalTrends([...updatedTrends, trend]);
+  }
 	return (
 		<UserDashboardStyles>
 			<h2>{username}'s Trends</h2>
@@ -38,15 +53,36 @@ const UserDashboard = () => {
 					<div className='delete-button'>
 						<button
 							className='edit'
-							onClick={() => console.log('Editing trend...')}>
+							onClick={() => setShowForm(true)}>
 							edit
 						</button>
 						<button className='delete' onClick={() => onDeleteTrend(trend)}>
 							delete
 						</button>
 					</div>
+          {showForm && (
+				<Modal
+					children={
+						<TrendForm
+							formTitle={'Edit Trend'}
+              formButtonText='update'
+              onSetParentsLocalState={onSetLocalTrends}
+							initialFormFields={{
+                id: trend.id,
+								title: trend.alt,
+								content: trend.content,
+								image: trend.image,
+								category: trend.category,
+								author_privacy: trend.author_privacy
+							}}
+						/>
+					}
+					onToggleModal={toggleModal}
+				/>
+			)}
 				</div>
 			))}
+		
 		</UserDashboardStyles>
 	);
 };
@@ -91,14 +127,14 @@ const UserDashboardStyles = styled.div`
 		}
 	}
 
-  .edit {
-			margin: 0.2rem;
-			padding: 0 0.2rem;
-			border: 1px solid var(--color-white-100);
-			font-size: 0.8rem;
-      &:hover{
-      border:1px solid var(--color-indigo-50);
-      color: var(--color-indigo-50);
-      }
+	.edit {
+		margin: 0.2rem;
+		padding: 0 0.2rem;
+		border: 1px solid var(--color-white-100);
+		font-size: 0.8rem;
+		&:hover {
+			border: 1px solid var(--color-indigo-50);
+			color: var(--color-indigo-50);
 		}
+	}
 `;
