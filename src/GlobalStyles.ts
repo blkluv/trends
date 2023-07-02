@@ -36,6 +36,7 @@ height: 100%;
 --color-blue-50: #016cc327;
 --color-blue-100: #2b00ff;
 --color-blue-500: #016cc3;
+--color-blue-semi_transparent: #0091ffb6;
 
 --color-white-100: white;
 
