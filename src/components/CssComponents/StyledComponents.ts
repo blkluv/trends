@@ -37,4 +37,31 @@ export const StyledForm = styled.div<IStyledProps>`
     outline: none;
     background-color: var(--color-pink-10);
   }
+
+  @media only screen and (max-width: 750px) {
+    font-size: 0.2rem;
+    max-width: 90%;
+    label{
+      font-size: 0.5rem;
+    }
+   textarea, input, select{
+    font-size: 0.3rem;
+   }
+
+   button{
+    font-size: 0.4rem;
+   }
+
+   h1{
+    font-size: 1rem;
+   }
+
+   .public{
+    font-size: 0.4rem;
+   }
+	}
+
+  @media only screen and (max-width: 500px) {
+    
+	}
 `;

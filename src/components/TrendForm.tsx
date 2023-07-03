@@ -106,6 +106,7 @@ const TrendForm = ({
 				initialFormFields?.author_privacy || privacy === 'private'
 					? 'private'
 					: 'public',
+      user_id,
 		};
 		console.log('creating newTrend...', newTrend);
 
@@ -117,7 +118,6 @@ const TrendForm = ({
       // Prepare to set in local state
       localNewTrend.id = -1;
       localNewTrend.views = 0;
-      localNewTrend.user_id = user_id;
       onSetParentsLocalState(localNewTrend, initialFormFields.id);
   }
 		else mutateCreate(newTrend);
@@ -241,6 +241,7 @@ export const FormControl = styled.div`
 
 	.small-text {
 		font-size: 0.5rem;
+    
 	}
 `;
 
