@@ -13,7 +13,7 @@ import { StyledForm } from '../components/CssComponents/StyledComponents';
 interface Props {
 	heading?: string;
 	formTitle: string;
-	initialFormFields?: FormFields;
+	initialFormFields?: FormFields; // available when editing a trend
 	formButtonText?: string;
   views?: number;
 	onSetParentsLocalState?: (trend: Trend, id: number) => void;
@@ -107,6 +107,7 @@ const TrendForm = ({
 					? 'private'
 					: 'public',
       user_id,
+      id: initialFormFields?.id,
 		};
 		console.log('creating newTrend...', newTrend);
 
@@ -115,9 +116,6 @@ const TrendForm = ({
       console.log('Editing trend mode...');
       mutateUpdate(newTrend);
       const localNewTrend = newTrend as Trend;
-      // Prepare to set in local state
-      localNewTrend.id = -1;
-      localNewTrend.views = 0;
       onSetParentsLocalState(localNewTrend, initialFormFields.id);
   }
 		else mutateCreate(newTrend);
@@ -153,7 +151,7 @@ const TrendForm = ({
 					<label id='title' htmlFor='title'>
 						Title
 					</label>
-					<input autoFocus placeholder='Title' {...register('title')} />
+					<input maxLength={30} autoFocus placeholder='Title' {...register('title')} />
 				</FormControl>
 				<FormControl className='form-control'>
 					<label id='content' htmlFor='content'>

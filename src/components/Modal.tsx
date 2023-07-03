@@ -10,7 +10,7 @@ interface Props {
 const Modal = ({
 	children = '',
 	title = '',
-	buttonText = 'go back',
+	buttonText = 'close',
 	onToggleModal,
 }: Props) => {
 
@@ -35,7 +35,7 @@ export default Modal;
 
 // CSS Components
 const ModalStyles = styled.div`
-	background: #0091ff6f;
+	background: #0091ff78;
 	position: fixed;
 	top: 0;
 	left: 0;
