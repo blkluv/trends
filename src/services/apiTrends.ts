@@ -3,7 +3,7 @@ import { sortTrends } from '../utility/sorters';
 import supabase from './supabase';
 
 
-
+// == Trends ==
 export const getTrends = async () => {
 	const { data, error } = await supabase
 		.from('trends')
@@ -29,8 +29,8 @@ export const getTrend = async(id: number) => {
 		console.log(error);
 		throw error;
 	}
-  
-  console.log('getTrend() in trendsApi: ', trends[0]);
+
+  console.log('getTrend: ', trends[0]);
   return trends[0];
 }
 
@@ -45,15 +45,6 @@ export const createTrend = async (trend: TrendData) => {
 	return data;
 };
 
-// content,
-// 			image,
-// 			alt: title,
-//       category,
-// 			likes: 0,
-// 			dislikes: 0,
-// 			author: privacy === 'private' ? 'anonymous' : username,
-//       author_privacy: initialFormFields?.author_privacy || privacy === 'private' ? 'private' : 'public',
-//       user_id
 export const updateTrend = async(trend: TrendData, trendId: number) => {
   const {content, image, alt, category, author, author_privacy} = trend;
   const { data, error } = await supabase
@@ -84,7 +75,7 @@ export const deleteTrend = async (trendId: number) => {
 };
 
 
-
+// == Views ==
 export const updateViewCount = async(value: number, id: number) => {
   const { data, error } = await supabase
   .from('trends')
@@ -99,8 +90,16 @@ export const updateViewCount = async(value: number, id: number) => {
   return data;
 }
 
+// == Votes ==
+export const getLikesAndDislikes = async(id: number) => {
+  const {likes, dislikes} = await getTrend(id);
+  
+  return {id, likes, dislikes};
+}
+
 export const updateLikesOrDislikes = async (info: {id: number, value: number, type: 'likes' | 'dislikes'}) => {
   const {id, value, type} = info;
+  console.log('Calling updateLikesOrDislikes() in apiTrends...', type);
 	const { data, error } = await supabase
 		.from('trends')
 		.update({ [type]: value })
@@ -115,7 +114,6 @@ export const updateLikesOrDislikes = async (info: {id: number, value: number, ty
 	return data;
 };
 
-// Voting List and Voting List helper functions
 export const updateVotedList = async(trendId: number, username: string) => {
   const alreadyVotedList: string[] = await getVotedList(trendId);
   const { data, error } = await supabase
