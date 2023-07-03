@@ -3,13 +3,14 @@ import styled from 'styled-components';
 import { FcComboChart } from 'react-icons/fc';
 import { useTrendingStore } from '../store';
 import { IStyledProps } from '../interfaces/cssComponentStyles';
+import nav_links from '../nav-links';
 
 
 const Header = () => {
 	const theme = useTrendingStore((store) => store.theme);
 	const authToken = useTrendingStore((store) => store.authToken);
 	const language = useTrendingStore((store) => store.language);
-	const navLinks: any = useTrendingStore((store) => store.navLinks);
+	const navLinks = nav_links;
 	const headerLinks = {
     logo: navLinks[language].logo,
 		create: navLinks[language].create,

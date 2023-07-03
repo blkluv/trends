@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import Icon from './Icon';
 import { useTrendingStore } from '../store';
 import { IStyledProps} from '../interfaces/cssComponentStyles';
-
+import nav_links from '../nav-links';
 
 // Trends for sidebar
 const CommonTrendsNavList = () => {
 	const navigate = useNavigate();
   const theme = useTrendingStore(store => store.theme);
-  const navLinks: any = useTrendingStore(store => store.navLinks);
+  const navLinks = nav_links;
   const language = useTrendingStore(store => store.language);
 
   // Temporary: data will be stored on backend.

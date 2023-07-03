@@ -11,7 +11,7 @@ interface TrendingStore {
 	comments: Comment[];
 	trends: Trend[];
 	sortTrendsBy: SortTrendsBy;
-	navLinks: { [key: string]: string }; // header and sidebar - here for switching between languages
+	// navLinks: { [key: string]: string }; // header and sidebar - here for switching between languages
 	language: 'japanese' | 'english';
 	toggleTheme: () => void;
 	setAuthToken: (authToken: string) => void;
@@ -33,34 +33,6 @@ export const useTrendingStore = create<TrendingStore>((set): any => {
 		comments: [],
 		trends: [],
 		sortTrendsBy: '',
-		navLinks: {
-			english: {
-				logo: 'Trending',
-				clothing: 'Clothing',
-				music: 'Music',
-				movies: 'Movies',
-				videoAndTv: 'Video & TV',
-				technology: 'Technology',
-				create: 'Create',
-				settings: 'Settings',
-				login: 'Login',
-				logout: 'Logout',
-        userDashboard: 'Dashboard'
-			},
-			japanese: {
-				logo: 'トレーディング',
-				clothing: '服装',
-				music: '音楽',
-				movies: '映画',
-				videoAndTv: 'ビデオとテレビ',
-				technology: '技術',
-				create: '投稿',
-				settings: '設定',
-				login: 'ログイン',
-				logout: 'ログアウト',
-        userDashboard: 'ダッシュボード',
-			},
-		},
 		language: 'english',
 
 		toggleTheme: () =>
