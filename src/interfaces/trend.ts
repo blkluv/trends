@@ -24,4 +24,5 @@ export interface TrendData{
   dislikes: number;
   author_privacy: string;
   category: string;
+  user_id?: string;
   }
