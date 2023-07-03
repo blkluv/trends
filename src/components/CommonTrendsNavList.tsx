@@ -8,11 +8,10 @@ import nav_links from '../nav-links';
 // Trends for sidebar
 const CommonTrendsNavList = () => {
 	const navigate = useNavigate();
-  const theme = useTrendingStore(store => store.theme);
+  const [theme, language] = useTrendingStore(store => [store.theme, store.language]);
   const navLinks = nav_links;
-  const language = useTrendingStore(store => store.language);
 
-  // Temporary: data will be stored on backend.
+  // These categories are fixed. Other trend categories will be dynamic and stored on backend.
 const trends = [
 	{ id: '/clothing', type: navLinks[language].clothing, icon: 'clothing' },
 	{ id: '/movies', type: navLinks[language].movies, icon: 'movie' },

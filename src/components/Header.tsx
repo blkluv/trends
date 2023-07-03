@@ -7,9 +7,7 @@ import nav_links from '../nav-links';
 
 
 const Header = () => {
-	const theme = useTrendingStore((store) => store.theme);
-	const authToken = useTrendingStore((store) => store.authToken);
-	const language = useTrendingStore((store) => store.language);
+	const [theme, authToken, language] = useTrendingStore((store) => [store.theme, store.authToken, store.language]);
 	const navLinks = nav_links;
 	const headerLinks = {
     logo: navLinks[language].logo,
