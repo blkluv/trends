@@ -11,7 +11,6 @@ interface TrendingStore {
 	comments: Comment[];
 	trends: Trend[];
 	sortTrendsBy: SortTrendsBy;
-	// navLinks: { [key: string]: string }; // header and sidebar - here for switching between languages
 	language: 'japanese' | 'english';
 	toggleTheme: () => void;
 	setAuthToken: (authToken: string) => void;
