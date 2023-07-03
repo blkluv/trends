@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { updateViewCount } from '../services/apiTrends';
 import { useTrendingStore } from '../store';
 import { findTrendById } from '../utility/filters';
-import { Trend } from '../interfaces/trend';
 
 interface Props {
 	increaseViewsCount?: boolean;
@@ -12,7 +11,7 @@ interface Props {
 }
 
 const Views = ({ increaseViewsCount, trendId }: Props) => {
-	const trends = useTrendingStore<Trend[]>((store) => store.trends);
+	const trends = useTrendingStore((store) => store.trends);
 	const trend = findTrendById(trendId, trends);
 	// const { data: trend } = useTrend(trendId); // Unpredictable behavior here with React Query.
 
