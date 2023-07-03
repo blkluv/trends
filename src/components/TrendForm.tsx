@@ -81,19 +81,6 @@ const TrendForm = ({
     console.log(category);
 		setCategory(kebabCaseify(category));
 
-    /* id: number; // created on server
-  created_at: Date; // created on server
-
-  author: string;
-  author_privacy: string;
-  content: string;
-  image: string;
-  alt: string;
-  likes: number;
-  dislikes: number;
-  category: string;
-  views: number;
-  user_id: string; */
 		const newTrend: TrendData = {
 			content,
 			image,
@@ -109,15 +96,13 @@ const TrendForm = ({
       user_id,
       id: initialFormFields?.id,
 		};
-		console.log('creating newTrend...', newTrend);
 
 		//edit
 		if (initialFormFields && onSetParentsLocalState){
-      console.log('Editing trend mode...');
       mutateUpdate(newTrend);
       const localNewTrend = newTrend as Trend;
       onSetParentsLocalState(localNewTrend, initialFormFields.id);
-  }
+  }// new trend
 		else mutateCreate(newTrend);
     
 	}
@@ -129,7 +114,6 @@ const TrendForm = ({
 
 	if (isSuccess) {
         toast.success('Creating new trend...');
-        // setTimeout(() => navigate(-1), 1000);
         navigate(`/${category}-trends`);
 	}
 
