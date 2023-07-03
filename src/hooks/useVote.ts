@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getLikesAndDislikes } from "../services/apiTrends";
 
-export const useVotes = (id: number) => {
+export const useVote = (id: number) => {
   // const queryClient = useQueryClient();
   // queryClient.invalidateQueries(); // Forces a refetch from backend to get latest data
 
