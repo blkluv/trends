@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { createTrend } from '../services/apiTrends';
 import { updateTrend } from '../services/apiTrends';
 import { useMutation } from '@tanstack/react-query';
-import { TrendData } from '../interfaces/trend';
+import { Trend, TrendData } from '../interfaces/trend';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useTrendingStore } from '../store';
@@ -15,7 +15,8 @@ interface Props {
 	formTitle: string;
 	initialFormFields?: FormFields;
 	formButtonText?: string;
-	onSetParentsLocalState?: (trend: TrendData, id: number) => void;
+  views?: number;
+	onSetParentsLocalState?: (trend: Trend, id: number) => void;
 }
 
 interface FormFields {
@@ -29,6 +30,7 @@ interface FormFields {
 
 // ! TODO 1) Refactor this into multiple components
 // ! TODO 2) Validate user input. Limit description to 300 characters.
+// ! TODO 3) Split into two forms - one for new Trends and one for editing trends. This works, but is overly complex.
 // When logged in, this option will appear
 const TrendForm = ({
 	heading,
@@ -61,7 +63,7 @@ const TrendForm = ({
 		mutate: mutateCreate,
 	} = useMutation((trend: TrendData) => createTrend(trend));
 
-	// edit trend // updateTrend(-1) should never happen and will do nothing if it does, since ids start from 1.
+	// edit trend // updateTrend(-1) will be set on new trends and reset to a proper id on server.
 	const { isSuccess: isUpdateSuccess, isError: isUpdateError, error: updateError, mutate: mutateUpdate } = useMutation((trend: TrendData) =>
 		updateTrend(trend, initialFormFields?.id || -1)
 	);
@@ -80,7 +82,20 @@ const TrendForm = ({
     console.log(category);
 		setCategory(kebabCaseify(category));
 
-		const newTrend = {
+    /* id: number; // created on server
+  created_at: Date; // created on server
+
+  author: string;
+  author_privacy: string;
+  content: string;
+  image: string;
+  alt: string;
+  likes: number;
+  dislikes: number;
+  category: string;
+  views: number;
+  user_id: string; */
+		const newTrend: Trend = {
 			content,
 			image,
 			alt: title,

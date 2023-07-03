@@ -13,7 +13,7 @@ const UserDashboard = () => {
 	const username = useTrendingStore((store) => store.username);
 	const user_id = useTrendingStore((store) => store.user_id);
 	const { data: dbTrends } = useTrends();
-	const [localTrends, setLocalTrends] = useState(dbTrends);
+	const [localTrends, setLocalTrends] = useState<Trend[]>(dbTrends || []);
 	const [showForm, setShowForm] = useState(false);
 	const filteredByUserTrends = filterTrendsByKeyValue(
 		'user_id',
@@ -67,6 +67,7 @@ const UserDashboard = () => {
 							formTitle={'Edit Trend'}
               formButtonText='update'
               onSetParentsLocalState={onSetLocalTrends}
+              views={trend.views}
 							initialFormFields={{
                 id: trend.id,
 								title: trend.alt,
