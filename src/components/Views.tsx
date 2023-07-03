@@ -13,7 +13,6 @@ interface Props {
 const Views = ({ increaseViewsCount, trendId }: Props) => {
 	const trends = useTrendingStore((store) => store.trends);
 	const trend = findTrendById(trendId, trends);
-	// const { data: trend } = useTrend(trendId); // Unpredictable behavior here with React Query.
 
 	useEffect(() => {
 		if (increaseViewsCount && trend && trend.views) {
