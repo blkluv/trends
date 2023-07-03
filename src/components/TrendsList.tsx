@@ -13,11 +13,7 @@ interface Props {
   /* trendsSortBy?: 'likes' | 'dislikes' | 'views' | 'comments' | 'likesToDislikesRatio'; */
 }
 const TrendsList = ({ trendType }: Props) => {
-	const theme = useTrendingStore((store) => store.theme);
-  const comments = useTrendingStore(store => store.comments);
-  const trendsSortBy = useTrendingStore(
-		(store) => store.sortTrendsBy
-	);
+	const [theme, comments, trendsSortBy] = useTrendingStore((store) => [store.theme, store.comments, store.sortTrendsBy]);
 	const { data: trends, isLoading, isError, error } = useTrends();
 	const err: any = error;
 	const filteredTrends = filterTrendsByCategory(trendType, trends);
