@@ -1,5 +1,5 @@
 import { MutationFunction, useMutation, useQueryClient } from "@tanstack/react-query"
-import { Trend, TrendData } from "../interfaces/trend";
+import { Trend  } from "../interfaces/trend";
 
 export const useMutateTrends = (mutationFunction: MutationFunction) => {
   const queryClient = useQueryClient();

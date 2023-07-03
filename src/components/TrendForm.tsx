@@ -33,7 +33,6 @@ interface FormFields {
 // ! TODO 3) Split into two forms - one for new Trends and one for editing trends. This works, but is overly complex.
 // When logged in, this option will appear
 const TrendForm = ({
-	heading,
 	formTitle,
 	formButtonText = 'create',
 	initialFormFields,
@@ -42,7 +41,7 @@ const TrendForm = ({
 	const { register, setValue, handleSubmit } = useForm();
 	const navigate = useNavigate();
 	const [category, setCategory] = useState('');
-	const [formFields, setFormFields] = useState(initialFormFields);
+	const [formFields] = useState(initialFormFields);
 	const [username, theme, authToken, user_id] = 
     useTrendingStore((store) => [store.username, store.theme, store.authToken, store.user_id]);
 
@@ -64,7 +63,7 @@ const TrendForm = ({
 	} = useMutation((trend: TrendData) => createTrend(trend));
 
 	// edit trend // updateTrend(-1) will be set on new trends and reset to a proper id on server.
-	const { isSuccess: isUpdateSuccess, isError: isUpdateError, error: updateError, mutate: mutateUpdate } = useMutation((trend: TrendData) =>
+	const { isSuccess: isUpdateSuccess, mutate: mutateUpdate } = useMutation((trend: TrendData) =>
 		updateTrend(trend, initialFormFields?.id || -1)
 	);
 
@@ -95,7 +94,7 @@ const TrendForm = ({
   category: string;
   views: number;
   user_id: string; */
-		const newTrend: Trend = {
+		const newTrend: TrendData = {
 			content,
 			image,
 			alt: title,
@@ -107,7 +106,6 @@ const TrendForm = ({
 				initialFormFields?.author_privacy || privacy === 'private'
 					? 'private'
 					: 'public',
-			user_id,
 		};
 		console.log('creating newTrend...', newTrend);
 
@@ -115,7 +113,12 @@ const TrendForm = ({
 		if (initialFormFields && onSetParentsLocalState){
       console.log('Editing trend mode...');
       mutateUpdate(newTrend);
-      onSetParentsLocalState(newTrend, initialFormFields.id);
+      const localNewTrend = newTrend as Trend;
+      // Prepare to set in local state
+      localNewTrend.id = -1;
+      localNewTrend.views = 0;
+      localNewTrend.user_id = user_id;
+      onSetParentsLocalState(localNewTrend, initialFormFields.id);
   }
 		else mutateCreate(newTrend);
     

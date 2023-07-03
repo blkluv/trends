@@ -5,7 +5,7 @@ import moment from 'moment';
 import { deleteTrend } from '../services/apiTrends';
 import { useTrends } from '../hooks/useTrends';
 import { useState } from 'react';
-import { Trend, TrendData } from '../interfaces/trend';
+import { Trend } from '../interfaces/trend';
 import Modal from '../components/Modal';
 import TrendForm from '../components/TrendForm';
 
