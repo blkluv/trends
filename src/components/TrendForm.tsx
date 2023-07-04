@@ -94,16 +94,18 @@ const TrendForm = ({
 					? 'private'
 					: 'public',
       user_id,
-      id: initialFormFields?.id,
 		};
+
 
 		//edit
 		if (initialFormFields && onSetParentsLocalState){
+      newTrend.id = initialFormFields.id; 
       mutateUpdate(newTrend);
       const localNewTrend = newTrend as Trend;
       onSetParentsLocalState(localNewTrend, initialFormFields.id);
   }// new trend
-		else mutateCreate(newTrend);
+		else
+      mutateCreate(newTrend);
     
 	}
 
