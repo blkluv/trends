@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery  } from "@tanstack/react-query";
 import { getTrend} from "../services/apiTrends";
 
 export const useTrend = (trendId: number) => {

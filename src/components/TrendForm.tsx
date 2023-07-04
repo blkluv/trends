@@ -3,12 +3,12 @@ import toast from 'react-hot-toast';
 import styled from 'styled-components';
 import { createTrend } from '../services/apiTrends';
 import { updateTrend } from '../services/apiTrends';
-import { useMutation } from '@tanstack/react-query';
 import { Trend, TrendData } from '../interfaces/trend';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useTrendingStore } from '../store';
 import { StyledForm } from '../components/CssComponents/StyledComponents';
+import { useMutateTrends } from '../hooks/useMutateTrends';
 
 interface Props {
 	heading?: string;
@@ -60,10 +60,10 @@ const TrendForm = ({
 		isError,
 		error,
 		mutate: mutateCreate,
-	} = useMutation((trend: TrendData) => createTrend(trend));
+	} = useMutateTrends((trend: TrendData) => createTrend(trend));
 
 	// edit trend // updateTrend(-1) will be set on new trends and reset to a proper id on server.
-	const { isSuccess: isUpdateSuccess, mutate: mutateUpdate } = useMutation((trend: TrendData) =>
+	const { isSuccess: isUpdateSuccess, mutate: mutateUpdate } = useMutateTrends((trend: TrendData) =>
 		updateTrend(trend, initialFormFields?.id || -1)
 	);
 
@@ -78,7 +78,6 @@ const TrendForm = ({
 		category,
 		privacy,
 	}: FieldValues) => {
-    console.log(category);
 		setCategory(kebabCaseify(category));
 
 		const newTrend: TrendData = {
@@ -95,17 +94,18 @@ const TrendForm = ({
 					: 'public',
       user_id,
 		};
-
-
 		//edit
 		if (initialFormFields && onSetParentsLocalState){
+      console.log('Updating trend...');
       newTrend.id = initialFormFields.id; 
       mutateUpdate(newTrend);
       const localNewTrend = newTrend as Trend;
       onSetParentsLocalState(localNewTrend, initialFormFields.id);
   }// new trend
-		else
+		else{
+      console.log('Creating new trend...');
       mutateCreate(newTrend);
+    }
     
 	}
 

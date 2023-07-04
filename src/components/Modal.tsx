@@ -4,7 +4,7 @@ interface Props {
 	children?: any;
 	title?: string;
 	buttonText?: string;
-	onToggleModal: () => boolean;
+	onToggleModal: () => void;
 }
 
 const Modal = ({

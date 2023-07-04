@@ -2,6 +2,7 @@ import { useTrendingStore } from './store';
 import { getComments } from './services/apiComments';
 import { getTrends } from './services/apiTrends';
 import Router from './Router';
+import { mountStoreDevtool } from 'simple-zustand-devtools';
 
 function App() {
   // ! initialize most data here and then only use custom hooks in components that need speedy updates upon data changes.
@@ -20,6 +21,8 @@ function App() {
   const setTrends = useTrendingStore( store => store.setTrends);
   getTrends().then(trends => setTrends(trends));
 
+  if(process.env.NODE_ENV === 'development')
+   mountStoreDevtool('Trending Store', useTrendingStore )
 	return (<Router/>); // Everything to be rendered comes through router.
 }
 

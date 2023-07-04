@@ -33,6 +33,10 @@ const UserDashboard = () => {
 		return showForm;
 	};
 
+  const getTrendData = (trendId: number) => {
+    return filteredByUserTrends.find(trend => trend.id === trendId);
+  }
+
 	const onSetLocalTrends = (trend: Trend, id: number) => {
 		const updatedTrends = filteredByUserTrends?.filter(
 			(trend) => trend.id !== id
@@ -52,7 +56,7 @@ const UserDashboard = () => {
 							Date: {moment(trend.created_at).format('MMMM Do YYYY, h:mm:ss a')}
 						</div>
 					</div>
-					<div className='delete-button'>
+					<div>
 						<button className='edit' onClick={() => setShowForm(true)}>
 							edit
 						</button>

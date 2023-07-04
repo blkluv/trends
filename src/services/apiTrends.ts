@@ -51,7 +51,7 @@ export const updateTrend = async(trend: TrendData, trendId: number) => {
   .from('trends')
   .update({ content, image, alt, category, author, author_privacy })
   .eq('id', trendId)
-  .select()
+  .select();
 
   if (error) {
 		console.log(error);
