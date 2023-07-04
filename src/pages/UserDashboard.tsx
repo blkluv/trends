@@ -33,11 +33,13 @@ const UserDashboard = () => {
 		return showForm;
 	};
 
-  const onSetLocalTrends = (trend: Trend, id: number) => {
-    const updatedTrends = filteredByUserTrends?.filter(trend => trend.id !== id);
-    console.log('updatedTrends: ', updatedTrends);
-    setLocalTrends([...updatedTrends, trend]);
-  }
+	const onSetLocalTrends = (trend: Trend, id: number) => {
+		const updatedTrends = filteredByUserTrends?.filter(
+			(trend) => trend.id !== id
+		);
+		console.log('updatedTrends: ', updatedTrends);
+		setLocalTrends([...updatedTrends, trend]);
+	};
 	return (
 		<UserDashboardStyles>
 			<h2>{username}'s Trends</h2>
@@ -51,39 +53,33 @@ const UserDashboard = () => {
 						</div>
 					</div>
 					<div className='delete-button'>
-						<button
-							className='edit'
-							onClick={() => setShowForm(true)}>
+						<button className='edit' onClick={() => setShowForm(true)}>
 							edit
 						</button>
 						<button className='delete' onClick={() => onDeleteTrend(trend)}>
 							delete
 						</button>
 					</div>
-          {showForm && (
-				<Modal
-					children={
-						<TrendForm
-							formTitle={'Edit Trend'}
-              formButtonText='update'
-              onSetParentsLocalState={onSetLocalTrends}
-              views={trend.views}
-							initialFormFields={{
-                id: trend.id,
-								title: trend.alt,
-								content: trend.content,
-								image: trend.image,
-								category: trend.category,
-								author_privacy: trend.author_privacy
-							}}
-						/>
-					}
-					onToggleModal={toggleModal}
-				/>
-			)}
+					{showForm && (
+						<Modal onToggleModal={toggleModal}>
+							<TrendForm
+								formTitle={'Edit Trend'}
+								formButtonText='update'
+								onSetParentsLocalState={onSetLocalTrends}
+								views={trend.views}
+								initialFormFields={{
+									id: trend.id,
+									title: trend.alt,
+									content: trend.content,
+									image: trend.image,
+									category: trend.category,
+									author_privacy: trend.author_privacy,
+								}}
+							/>
+						</Modal>
+					)}
 				</div>
 			))}
-		
 		</UserDashboardStyles>
 	);
 };
