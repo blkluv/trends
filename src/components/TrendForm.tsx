@@ -16,7 +16,7 @@ interface Props {
 	initialFormFields?: FormFields; // available when editing a trend
 	formButtonText?: string;
   views?: number;
-	onSetParentsLocalState?: (trend: Trend, id: number) => void;
+	onSetTrends?: (trend: Trend, id: number) => void;
 }
 
 interface FormFields {
@@ -36,7 +36,7 @@ const TrendForm = ({
 	formTitle,
 	formButtonText = 'create',
 	initialFormFields,
-  onSetParentsLocalState,
+  onSetTrends,
 }: Props) => {
 	const { register, setValue, handleSubmit } = useForm();
 	const navigate = useNavigate();
@@ -62,7 +62,7 @@ const TrendForm = ({
 		mutate: mutateCreate,
 	} = useMutateTrends((trend: TrendData) => createTrend(trend));
 
-	// edit trend // updateTrend(-1) will be set on new trends and reset to a proper id on server.
+	// edit trend // updateTrend(-1) should never happen, but Typescript complains without the || -1.
 	const { isSuccess: isUpdateSuccess, mutate: mutateUpdate } = useMutateTrends((trend: TrendData) =>
 		updateTrend(trend, initialFormFields?.id || -1)
 	);
@@ -95,12 +95,12 @@ const TrendForm = ({
       user_id,
 		};
 		//edit
-		if (initialFormFields && onSetParentsLocalState){
+		if (initialFormFields && onSetTrends){
       console.log('Updating trend...');
       newTrend.id = initialFormFields.id; 
       mutateUpdate(newTrend);
-      const localNewTrend = newTrend as Trend;
-      onSetParentsLocalState(localNewTrend, initialFormFields.id);
+      // const localNewTrend = newTrend as Trend;
+      // onSetTrends(localNewTrend, initialFormFields.id);
   }// new trend
 		else{
       console.log('Creating new trend...');

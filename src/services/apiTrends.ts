@@ -46,7 +46,8 @@ export const createTrend = async (trend: TrendData): Promise<Trend> => {
 	return data[0];
 };
 
-export const updateTrend = async(trend: TrendData, trendId: number) => {
+export const updateTrend = async(trend: TrendData, trendId: number): Promise<Trend> => {
+  console.log('updateTrend()...', trend);
   const {content, image, alt, category, author, author_privacy} = trend;
   const { data, error } = await supabase
   .from('trends')
@@ -59,7 +60,7 @@ export const updateTrend = async(trend: TrendData, trendId: number) => {
 		throw error;
 	}
 
-	return data;
+	return data[0];
 }
 
 export const deleteTrend = async (trendId: number) => {

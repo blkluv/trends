@@ -18,22 +18,16 @@ const UserDashboard = () => {
 	);
   console.log('usersTrends', usersTrends);
 
-	const onDeleteTrend = (trend: Trend) => {
-		deleteTrend(trend.id); // delete in db
+	const onDeleteTrend = async(trend: Trend) => {
+		await deleteTrend(trend.id); // delete in db
 		setTrends(storedTrends?.filter((storedTrend) => storedTrend.id !== trend.id)); // delete in store
 	};
 
-	const closeModal = () => {
+  const closeModal = () => {
 		setShowForm(null);
 		return showForm;
 	};
 
-	const onSetLocalTrends = (trend: Trend, id: number) => {
-		const updatedTrends = usersTrends?.filter(
-			(trend) => trend.id !== id
-		);
-		setTrends([...updatedTrends, trend]);
-	};
 	return (
 		<UserDashboardStyles>
 			<h2>{username}'s Trends</h2>
@@ -41,7 +35,7 @@ const UserDashboard = () => {
 				<div className='trend-info-container'>
 					<div className='trend-info'>
 						<div className='title'>Title: {trend.alt}</div>
-						<p className='description'>Content: {trend.content.slice(0, 30)}</p>
+						<p className='description'>Content: {trend.content.slice(0, 30)}...</p>
 						<div className='date-created'>
 							Date: {moment(trend.created_at).format('MMMM Do YYYY, h:mm:ss a')}
 						</div>
@@ -59,7 +53,6 @@ const UserDashboard = () => {
 							<TrendForm
 								formTitle={'Edit Trend'}
 								formButtonText='update'
-								onSetParentsLocalState={onSetLocalTrends}
 								views={trend.views}
 								initialFormFields={{
 									id: trend.id,

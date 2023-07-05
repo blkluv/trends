@@ -23,6 +23,7 @@ const TrendsList = ({ trendType }: Props) => {
 		</HeadingStyles>
 	);
 
+  console.log('trendsInTrendsList: ', trends);
   if(trendsSortBy && trends) sortTrendsBy(trendsSortBy, trends, comments);
 
 	if (isLoading) return <p>'Loading...'</p>;
