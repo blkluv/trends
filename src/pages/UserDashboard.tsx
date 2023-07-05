@@ -3,7 +3,6 @@ import { useTrendingStore } from '../store';
 import { filterTrendsByKeyValue } from '../utility/filters';
 import moment from 'moment';
 import { deleteTrend } from '../services/apiTrends';
-import { useTrends } from '../hooks/useTrends';
 import { useState } from 'react';
 import { Trend } from '../interfaces/trend';
 import Modal from '../components/Modal';
@@ -29,15 +28,10 @@ const UserDashboard = () => {
 		return showForm;
 	};
 
-  const getTrendData = (trendId: number) => {
-    return usersTrends.find(trend => trend.id === trendId);
-  }
-
 	const onSetLocalTrends = (trend: Trend, id: number) => {
 		const updatedTrends = usersTrends?.filter(
 			(trend) => trend.id !== id
 		);
-		console.log('updatedTrends: ', updatedTrends);
 		setTrends([...updatedTrends, trend]);
 	};
 	return (
