@@ -5,17 +5,16 @@ import { Trend, TrendData  } from "../interfaces/trend";
 export const useMutateTrends = (mtnFn: any) => {
   const queryClient = useQueryClient();
   const setTrends = useTrendingStore(store => store.setTrends);
-  const storeTrends = useTrendingStore(store => store.trends);
-  // queryClient.invalidateQueries(); // Forces a refetch from backend to get latest data
+  const prevStoredTrends = useTrendingStore(store => store.trends);
   
-  return useMutation({ // ! Need to update the trendingStore upon mutation and use it as the main state for trends shown on site.
+  return useMutation({
     mutationFn: (trend: (TrendData | Trend)) => 
       mtnFn(trend),
-    onSuccess: ( (savedTrend, newTrend) => {
-      console.log('useMutateTrends()', storeTrends, savedTrend, newTrend);
-      // setTrends([...trends, savedTrend]); // ! Causing undefined id error 
+    onSuccess: ( (savedTrend: Trend) => {
+      setTrends([savedTrend, ...prevStoredTrends]);
       queryClient.setQueryData<Trend[]>(['trends'], (trends) => {
-        [savedTrend, ...(trends || [])];
+        console.log('prevStoredTrends: ', prevStoredTrends);
+        return [savedTrend, ...(trends || [])];
       })
     } )
   });
