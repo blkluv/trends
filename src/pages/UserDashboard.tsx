@@ -10,7 +10,7 @@ import TrendForm from '../components/TrendForm';
 
 const UserDashboard = () => {
 	const [username, user_id, storedTrends, setTrends] = useTrendingStore((store) => [store.username, store.user_id, store.trends, store.setTrends]);
-	const [showForm, setShowForm] = useState(false);
+	const [showForm, setShowForm] = useState<number|null>(null);
 	const usersTrends = filterTrendsByKeyValue(
 		'user_id',
 		user_id,
@@ -23,8 +23,8 @@ const UserDashboard = () => {
 		setTrends(storedTrends?.filter((storedTrend) => storedTrend.id !== trend.id)); // delete in store
 	};
 
-	const toggleModal = () => {
-		setShowForm(!showForm);
+	const closeModal = () => {
+		setShowForm(null);
 		return showForm;
 	};
 
@@ -47,15 +47,15 @@ const UserDashboard = () => {
 						</div>
 					</div>
 					<div>
-						<button className='edit' onClick={() => setShowForm(true)}>
+						<button className='edit' onClick={() => setShowForm(showForm === trend.id ? null : trend.id)}>
 							edit
 						</button>
 						<button className='delete' onClick={() => onDeleteTrend(trend)}>
 							delete
 						</button>
 					</div>
-					{showForm && (
-						<Modal onToggleModal={toggleModal}>
+					{showForm === trend.id && (
+						<Modal onToggleModal={closeModal}>
 							<TrendForm
 								formTitle={'Edit Trend'}
 								formButtonText='update'
