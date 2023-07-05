@@ -35,14 +35,15 @@ export const getTrend = async(id: number) => {
 }
 
 export const createTrend = async (trend: TrendData) => {
-	const { data, error } = await supabase.from('trends').insert([trend]);
+	const { data, error } = await supabase.from('trends').insert([trend]).select();
 
 	if (error) {
 		console.log(error);
 		throw error;
 	}
 
-	return data;
+  console.log('createTrend data: ', data);
+	return data[0];
 };
 
 export const updateTrend = async(trend: TrendData, trendId: number) => {
