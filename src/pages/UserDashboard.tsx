@@ -10,22 +10,18 @@ import Modal from '../components/Modal';
 import TrendForm from '../components/TrendForm';
 
 const UserDashboard = () => {
-	const username = useTrendingStore((store) => store.username);
-	const user_id = useTrendingStore((store) => store.user_id);
-	const { data: dbTrends } = useTrends();
-	const [localTrends, setLocalTrends] = useState<Trend[]>(dbTrends || []);
+	const [username, user_id, storedTrends, setTrends] = useTrendingStore((store) => [store.username, store.user_id, store.trends, store.setTrends]);
 	const [showForm, setShowForm] = useState(false);
-	const filteredByUserTrends = filterTrendsByKeyValue(
+	const usersTrends = filterTrendsByKeyValue(
 		'user_id',
 		user_id,
-		localTrends
+		storedTrends
 	);
+  console.log('usersTrends', usersTrends);
 
 	const onDeleteTrend = (trend: Trend) => {
 		deleteTrend(trend.id); // delete in db
-		setLocalTrends(
-			localTrends?.filter((localTrend) => localTrend.id !== trend.id)
-		); // delete locally
+		setTrends(storedTrends?.filter((storedTrend) => storedTrend.id !== trend.id)); // delete in store
 	};
 
 	const toggleModal = () => {
@@ -34,20 +30,20 @@ const UserDashboard = () => {
 	};
 
   const getTrendData = (trendId: number) => {
-    return filteredByUserTrends.find(trend => trend.id === trendId);
+    return usersTrends.find(trend => trend.id === trendId);
   }
 
 	const onSetLocalTrends = (trend: Trend, id: number) => {
-		const updatedTrends = filteredByUserTrends?.filter(
+		const updatedTrends = usersTrends?.filter(
 			(trend) => trend.id !== id
 		);
 		console.log('updatedTrends: ', updatedTrends);
-		setLocalTrends([...updatedTrends, trend]);
+		setTrends([...updatedTrends, trend]);
 	};
 	return (
 		<UserDashboardStyles>
 			<h2>{username}'s Trends</h2>
-			{filteredByUserTrends.map((trend) => (
+			{usersTrends.map((trend) => (
 				<div className='trend-info-container'>
 					<div className='trend-info'>
 						<div className='title'>Title: {trend.alt}</div>
