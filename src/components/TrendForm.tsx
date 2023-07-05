@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 import styled from 'styled-components';
 import { createTrend } from '../services/apiTrends';
 import { updateTrend } from '../services/apiTrends';
-import { Trend, TrendData } from '../interfaces/trend';
+import { TrendData } from '../interfaces/trend';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useTrendingStore } from '../store';
@@ -16,7 +16,6 @@ interface Props {
 	initialFormFields?: FormFields; // available when editing a trend
 	formButtonText?: string;
   views?: number;
-	onSetTrends?: (trend: Trend, id: number) => void;
 }
 
 interface FormFields {
@@ -36,7 +35,6 @@ const TrendForm = ({
 	formTitle,
 	formButtonText = 'create',
 	initialFormFields,
-  onSetTrends,
 }: Props) => {
 	const { register, setValue, handleSubmit } = useForm();
 	const navigate = useNavigate();
@@ -95,12 +93,11 @@ const TrendForm = ({
       user_id,
 		};
 		//edit
-		if (initialFormFields && onSetTrends){
+    
+		if (initialFormFields){
       console.log('Updating trend...');
       newTrend.id = initialFormFields.id; 
       mutateUpdate(newTrend);
-      // const localNewTrend = newTrend as Trend;
-      // onSetTrends(localNewTrend, initialFormFields.id);
   }// new trend
 		else{
       console.log('Creating new trend...');
