@@ -17,12 +17,13 @@ export const getComments = async() => {
 export const createComment = async(comment: CommentData) => {
   const { data, error } = await supabase
   .from('comments')
-  .insert([comment]);
+  .insert([comment])
+  .select();
 
   if (error) {
 		console.log(error);
 		throw error;
 	}
 
-	return data;
+	return data[0]; // returns comment in an array
 }

@@ -1,4 +1,4 @@
-import { TrendData } from '../interfaces/trend';
+import { Trend, TrendData } from '../interfaces/trend';
 import { sortTrends } from '../utility/sorters';
 import supabase from './supabase';
 
@@ -34,7 +34,7 @@ export const getTrend = async(id: number) => {
   return trends[0];
 }
 
-export const createTrend = async (trend: TrendData) => {
+export const createTrend = async (trend: TrendData): Promise<Trend> => {
 	const { data, error } = await supabase.from('trends').insert([trend]).select();
 
 	if (error) {
