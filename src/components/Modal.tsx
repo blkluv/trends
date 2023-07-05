@@ -15,7 +15,7 @@ const Modal = ({
 }: Props) => {
 
   const onBackgroundClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if(e.target['classList'][2] === 'outer')
+    if((e.target as Element)['classList'][2] === 'outer')
       onToggleModal();
   }
 	return (
