@@ -30,24 +30,20 @@ export const getTrend = async(id: number) => {
 		throw error;
 	}
 
-  console.log('getTrend: ', trends[0]);
   return trends[0];
 }
 
 export const createTrend = async (trend: TrendData): Promise<Trend> => {
 	const { data, error } = await supabase.from('trends').insert([trend]).select();
-
 	if (error) {
 		console.log(error);
 		throw error;
 	}
 
-  console.log('createTrend data: ', data);
 	return data[0];
 };
 
 export const updateTrend = async(trend: TrendData, trendId: number): Promise<Trend> => {
-  console.log('updateTrend()...', trend);
   const {content, image, alt, category, author, author_privacy} = trend;
   const { data, error } = await supabase
   .from('trends')
@@ -64,7 +60,6 @@ export const updateTrend = async(trend: TrendData, trendId: number): Promise<Tre
 }
 
 export const deleteTrend = async (trendId: number) => {
-  console.log('Deleting trend...', trendId);
 	const { error } = await supabase
   .from('trends')
   .delete()
@@ -101,7 +96,6 @@ export const getLikesAndDislikes = async(id: number) => {
 
 export const updateLikesOrDislikes = async (info: {id: number, value: number, type: 'likes' | 'dislikes'}) => {
   const {id, value, type} = info;
-  console.log('Calling updateLikesOrDislikes() in apiTrends...', type);
 	const { data, error } = await supabase
 		.from('trends')
 		.update({ [type]: value })
