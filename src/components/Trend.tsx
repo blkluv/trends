@@ -7,6 +7,7 @@ import Views from './Views';
 import CommentsIcon from './CommentsIcon';
 import { useComments } from '../hooks/useComments';
 import { IStyledProps} from '../interfaces/cssComponentStyles';
+import { useEffect, useState } from 'react';
 
 interface Props {
 	// trend

@@ -15,10 +15,11 @@ const Views = ({ increaseViewsCount, trendId }: Props) => {
 	const trend = findTrendById(trendId, trends);
   const { mutate } = useMutateViews(trend? trend.views + 1 : 0, trendId);
    
-
+   
+  
 	useEffect(() => {
-		if (increaseViewsCount && trend && trend.views)
-        mutate();
+    if (increaseViewsCount && trend && trend.views)
+      mutate();
 	}, [trend]);
 
 	return (

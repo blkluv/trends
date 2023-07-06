@@ -7,6 +7,7 @@ import { filterTrendsByCategory } from '../utility/filters.ts';
 import { sortTrendsBy } from '../utility/sorters.ts';
 import { IStyledProps } from '../interfaces/cssComponentStyles.ts';
 import TrendSorter from './TrendSorter.tsx';
+import { useEffect } from 'react';
 
 interface Props {
 	trendType: string;
@@ -23,7 +24,6 @@ const TrendsList = ({ trendType }: Props) => {
 		</HeadingStyles>
 	);
 
-  console.log('trendsInTrendsList: ', trends);
   if(trendsSortBy && trends) sortTrendsBy(trendsSortBy, trends, comments);
 
 	if (isLoading) return <p>'Loading...'</p>;

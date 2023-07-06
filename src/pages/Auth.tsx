@@ -36,7 +36,6 @@ const Auth = () => {
       const { session } = await login({ email, password });
 			
       if (!session) return toast.error('No session available...');
-			console.log('session: ', session);
       setAuthToken(session?.access_token);
 			setUsername(username);
       setUserId(session?.user.id);

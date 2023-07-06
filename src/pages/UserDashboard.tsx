@@ -16,7 +16,6 @@ const UserDashboard = () => {
 		user_id,
 		storedTrends
 	);
-  console.log('usersTrends', usersTrends);
 
 	const onDeleteTrend = async(trend: Trend) => {
 		await deleteTrend(trend.id); // delete in db

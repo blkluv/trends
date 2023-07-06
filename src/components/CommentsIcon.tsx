@@ -8,7 +8,6 @@ interface Props {
 	comments?: Comment[] | any;
 }
 const CommentsIcon = ({ id, comments }: Props) => {
-	// console.log('comments: ', comments);
 
 	return (
 		<CommentsIconStyles>

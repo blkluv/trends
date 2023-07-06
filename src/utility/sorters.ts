@@ -8,7 +8,6 @@ export const sortTrendsBy = (
 	sortType: SortTrendsBy,
 	trends: Trend[], comments?: Comment[]
 ) => {
-  console.log('sortType : ', sortType);
 	let sorterFn;
 	if (sortType === 'likes')
 		sorterFn = (trend1: Trend, trend2: Trend) => trend2.likes - trend1.likes;
