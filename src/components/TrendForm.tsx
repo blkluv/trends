@@ -60,7 +60,7 @@ const TrendForm = ({
 		mutate: mutateCreate,
 	} = useMutateTrends((trend: TrendData) => createTrend(trend));
 
-	// edit trend // updateTrend(-1) should never happen, but Typescript complains without the || -1.
+	// edit trend // updateTrend(-1) will never happen, but Typescript complains without the || -1.
 	const { isSuccess: isUpdateSuccess, mutate: mutateUpdate } = useMutateTrends((trend: TrendData) =>
 		updateTrend(trend, initialFormFields?.id || -1)
 	);
@@ -93,14 +93,11 @@ const TrendForm = ({
       user_id,
 		};
 		//edit
-    
 		if (initialFormFields){
-      console.log('Updating trend...');
       newTrend.id = initialFormFields.id; 
       mutateUpdate(newTrend);
   }// new trend
 		else{
-      console.log('Creating new trend...');
       mutateCreate(newTrend);
     }
     
@@ -116,8 +113,7 @@ const TrendForm = ({
         navigate(`/${category}-trends`);
 	}
 
-	
-
+  // Not logged in user
 	if (!authToken)
 		return (
 			<p>
@@ -126,6 +122,7 @@ const TrendForm = ({
 			</p>
 		);
 
+  // Logged in user
 	return (
 		<StyledForm setting={theme}>
 			<Heading>{formTitle}</Heading>

@@ -41,7 +41,7 @@ const Auth = () => {
 			setUsername(username);
       setUserId(session?.user.id);
 			toast.success('Logged in.');
-			navigate('/');
+			navigate(-1);
       });
 	};
 

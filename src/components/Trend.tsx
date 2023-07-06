@@ -31,8 +31,8 @@ const Trend = ({
 	id,
 }: Props) => {
 	const navigate = useNavigate();
-	const theme = useTrendingStore((store) => store.theme);
-	const { data: comments } = useComments();
+	const [theme, comments] = useTrendingStore((store) => [store.theme, store.comments]);
+	// const { data: comments } = useComments();
 
 	const navigateToComments = () => {
 		navigate('/trend-comment-page', {

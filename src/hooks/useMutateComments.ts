@@ -6,14 +6,13 @@ import { useTrendingStore } from "../store";
 export const useMutateComments = () => {
   const queryClient = useQueryClient();
   const [prevStoredComments, setComments] = useTrendingStore(store => [store.comments, store.setComments]);
-  // queryClient.invalidateQueries(); // Forces a refetch from backend to get latest data
   
   return useMutation<Comment, Error, CommentData>({
     mutationFn: (commentData: CommentData) => createComment(commentData),
     onSuccess: ( (savedComment: Comment) => {
-      setComments([savedComment, ...prevStoredComments]);
+      setComments([savedComment, ...prevStoredComments]);// store
       queryClient.setQueryData<CommentData[]>(['comments'], (comments) => {
-        return [savedComment, ...(comments || [])];
+        return [savedComment, ...(comments || [])]; // cache
       })
     } )
   })

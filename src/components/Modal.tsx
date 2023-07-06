@@ -4,19 +4,19 @@ interface Props {
 	children?: any;
 	title?: string;
 	buttonText?: string;
-	onToggleModal: () => void;
+	onCloseModal: () => void;
 }
 
 const Modal = ({
 	children = '',
 	title = '',
 	buttonText = 'close',
-	onToggleModal,
+	onCloseModal,
 }: Props) => {
 
   const onBackgroundClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if((e.target as Element)['classList'][2] === 'outer')
-      onToggleModal();
+    if((e.target as Element)['classList'][2] === 'outer') // close on click outside modal
+      onCloseModal();
   }
 	return (
 		<OutterModalStyles className='outer' onClick={onBackgroundClick}>
@@ -24,7 +24,7 @@ const Modal = ({
         <h1 className='title'>{title}</h1>
         <div className='content'>{children}</div>
         <div className='button-container'>
-          <button className='close-button' onClick={() => onToggleModal()}>{buttonText}</button>
+          <button className='close-button' onClick={() => onCloseModal()}>{buttonText}</button>
         </div>
       </ModalStyles>
     </OutterModalStyles>

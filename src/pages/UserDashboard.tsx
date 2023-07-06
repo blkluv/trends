@@ -49,7 +49,7 @@ const UserDashboard = () => {
 						</button>
 					</div>
 					{showForm === trend.id && (
-						<Modal onToggleModal={closeModal}>
+						<Modal onCloseModal={closeModal}>
 							<TrendForm
 								formTitle={'Edit Trend'}
 								formButtonText='update'
