@@ -1,4 +1,4 @@
-import { TbShirtFilled, TbMovie, TbMusic, TbCpu2, TbDeviceTv } from 'react-icons/tb';
+import { TbShirtFilled, TbMovie, TbMusic, TbCpu2, TbDeviceTv, TbPhotoEdit, TbCircleX } from 'react-icons/tb';
 import styled from 'styled-components';
 
 interface Props {
@@ -12,6 +12,8 @@ const Icon = ({ icon }: Props) => {
 		music: <TbMusic />,
 		videoAndTv: <TbDeviceTv />,
 		technology: <TbCpu2 />,
+    edit: <TbPhotoEdit/>,
+    delete: <TbCircleX/>
 	};
 
 	return <IconStyles>{icons[icon]}</IconStyles>;
