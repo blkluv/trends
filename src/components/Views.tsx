@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { FaChartBar } from 'react-icons/fa';
 import { useEffect } from 'react';
-import { updateViewCount } from '../services/apiTrends';
 import { useTrendingStore } from '../store';
 import { findTrendById } from '../utility/filters';
+import { useMutateViews } from '../hooks/useMutateViews';
 
 interface Props {
 	increaseViewsCount?: boolean;
@@ -13,11 +13,12 @@ interface Props {
 const Views = ({ increaseViewsCount, trendId }: Props) => {
 	const trends = useTrendingStore((store) => store.trends);
 	const trend = findTrendById(trendId, trends);
+  const { mutate } = useMutateViews(trend? trend.views + 1 : 0, trendId);
+   
 
 	useEffect(() => {
-		if (increaseViewsCount && trend && trend.views) {
-			updateViewCount(trend.views + 1, trendId);
-		}
+		if (increaseViewsCount && trend && trend.views)
+        mutate();
 	}, [trend]);
 
 	return (

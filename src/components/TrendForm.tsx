@@ -39,9 +39,9 @@ const TrendForm = ({
 	const { register, setValue, handleSubmit } = useForm();
 	const navigate = useNavigate();
 	const [category, setCategory] = useState('');
-	const [formFields] = useState(initialFormFields);
 	const [username, theme, authToken, user_id] = 
     useTrendingStore((store) => [store.username, store.theme, store.authToken, store.user_id]);
+  const formFields = initialFormFields;
 
 	// initialize form fields
 	useEffect(() => {

@@ -22,7 +22,8 @@ function App() {
   getTrends().then(trends => setTrends(trends));
 
   if(process.env.NODE_ENV === 'development')
-   mountStoreDevtool('Trending Store', useTrendingStore )
+   mountStoreDevtool('Trending Store', useTrendingStore );
+
 	return (<Router/>); // Everything to be rendered comes through router.
 }
 

@@ -77,14 +77,15 @@ export const updateViewCount = async(value: number, id: number) => {
   const { data, error } = await supabase
   .from('trends')
   .update({ views: value })
-  .eq('id', id);
+  .eq('id', id)
+  .select();
 
   if (error) {
 		console.log(error);
 		throw error;
 	}
 
-  return data;
+  return data[0].views;
 }
 
 // == Votes ==
