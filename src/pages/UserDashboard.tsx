@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { Trend } from '../interfaces/trend';
 import Modal from '../components/Modal';
 import TrendForm from '../components/TrendForm';
+import Icon from '../components/Icon';
 
 const UserDashboard = () => {
 	const [username, user_id, storedTrends, setTrends] = useTrendingStore((store) => [store.username, store.user_id, store.trends, store.setTrends]);
@@ -18,6 +19,9 @@ const UserDashboard = () => {
 	);
 
 	const onDeleteTrend = async(trend: Trend) => {
+    if(!confirm("Are you sure you want to delete this trend?"))
+      return;
+
 		await deleteTrend(trend.id); // delete in db
 		setTrends(storedTrends?.filter((storedTrend) => storedTrend.id !== trend.id)); // delete in store
 	};
@@ -40,11 +44,11 @@ const UserDashboard = () => {
 						</div>
 					</div>
 					<div>
-						<button className='edit' onClick={() => setShowForm(showForm === trend.id ? null : trend.id)}>
-							edit
+						<button className='edit' title='edit' onClick={() => setShowForm(showForm === trend.id ? null : trend.id)}>
+							<Icon icon='edit'/>
 						</button>
-						<button className='delete' onClick={() => onDeleteTrend(trend)}>
-							delete
+						<button className='delete' title='delete' onClick={() => onDeleteTrend(trend)}>
+            <Icon icon='delete'/>
 						</button>
 					</div>
 					{showForm === trend.id && (
@@ -100,7 +104,7 @@ const UserDashboardStyles = styled.div`
 
 	.delete {
 		margin: 0.2rem;
-		padding: 0 0.2rem;
+		padding: 0 0.01rem;
 		border: 1px solid var(--color-white-100);
 		font-size: 0.8rem;
 
@@ -112,7 +116,7 @@ const UserDashboardStyles = styled.div`
 
 	.edit {
 		margin: 0.2rem;
-		padding: 0 0.2rem;
+		padding: 0 0.01rem;
 		border: 1px solid var(--color-white-100);
 		font-size: 0.8rem;
 		&:hover {
@@ -120,4 +124,8 @@ const UserDashboardStyles = styled.div`
 			color: var(--color-indigo-50);
 		}
 	}
+
+  .delete, .edit{
+    border-radius: 0.2rem;
+  }
 `;
