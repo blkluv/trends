@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useTrendingStore } from "../store";
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
+import { NavLink } from "react-router-dom";
 
 // ! Fix bug to remove cursor from becoming pointer on sun / moon svg
 const Settings = () => {
@@ -19,7 +20,7 @@ const Settings = () => {
 			<ul className='settings'>
 				<button onClick={toggleTheme}>{ theme === 'light' ? 'Dark' : 'Light'} Theme</button>
 				<button onClick={toggleLanguage}>{ language === 'english' ? '日本語' : 'English'}</button>
-				<li>Setting 3 - Coming soon</li>
+				<NavLink to="/site-stats">Site Statistics</NavLink>
 			</ul>
 		</SettingsStyles>
 	);

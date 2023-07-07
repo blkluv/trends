@@ -18,6 +18,7 @@ import Logout from './pages/Logout';
 import TrendCommentPage from './pages/trends/TrendCommentPage';
 import VideoAndTvTrends from './pages/trends/VideoAndTvTrends';
 import UserDashboard from './pages/UserDashboard';
+import SiteStats from './pages/SiteStats';
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -49,6 +50,7 @@ const Router = () => {
 							path='trend-comment-page'
 							element={<TrendCommentPage />}></Route>
 						<Route path='settings' element={<Settings />}></Route>
+						<Route path='site-stats' element={<SiteStats />}></Route>
 						<Route path='auth' element={<Auth />}></Route>
 						<Route path='logout' element={<Logout />}></Route>
             <Route path="user-dashboard" element={<UserDashboard/>}></Route>
