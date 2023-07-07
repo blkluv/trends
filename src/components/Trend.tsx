@@ -5,9 +5,7 @@ import Vote from './Vote';
 import moment from 'moment';
 import Views from './Views';
 import CommentsIcon from './CommentsIcon';
-import { useComments } from '../hooks/useComments';
 import { IStyledProps} from '../interfaces/cssComponentStyles';
-import { useEffect, useState } from 'react';
 
 interface Props {
 	// trend
@@ -33,7 +31,6 @@ const Trend = ({
 }: Props) => {
 	const navigate = useNavigate();
 	const [theme, comments] = useTrendingStore((store) => [store.theme, store.comments]);
-	// const { data: comments } = useComments();
 
 	const navigateToComments = () => {
 		navigate('/trend-comment-page', {

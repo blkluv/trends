@@ -7,7 +7,6 @@ import { filterTrendsByCategory } from '../utility/filters.ts';
 import { sortTrendsBy } from '../utility/sorters.ts';
 import { IStyledProps } from '../interfaces/cssComponentStyles.ts';
 import TrendSorter from './TrendSorter.tsx';
-import { useEffect } from 'react';
 
 interface Props {
 	trendType: string;
