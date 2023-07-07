@@ -80,16 +80,16 @@ const TrendForm = ({
 
 		const newTrend: TrendData = {
 			content,
-			image,
+			image: image ? image: 'http://img2.wikia.nocookie.net/__cb20130418072455/k-anime/images/6/60/No_Image_Available.png',
 			alt: title,
 			category,
 			likes: 0,
 			dislikes: 0,
 			author: privacy === 'private' ? 'anonymous' : username,
 			author_privacy:
-				initialFormFields?.author_privacy || privacy === 'private'
+				privacy === 'private'
 					? 'private'
-					: 'public',
+					: 'public' || initialFormFields?.author_privacy,
       user_id,
 		};
 		//edit
@@ -131,7 +131,7 @@ const TrendForm = ({
 					<label id='title' htmlFor='title'>
 						Title
 					</label>
-					<input maxLength={30} autoFocus placeholder='Title' {...register('title')} />
+					<input maxLength={30} autoFocus placeholder='Title' required {...register('title')} />
 				</FormControl>
 				<FormControl className='form-control'>
 					<label id='content' htmlFor='content'>
@@ -141,6 +141,7 @@ const TrendForm = ({
 						maxLength={300}
 						rows={5}
 						placeholder='Describe the trend in under 300 characters.'
+            required
 						{...register('content')}
 					/>
 				</FormControl>
@@ -148,13 +149,13 @@ const TrendForm = ({
 					<label id='image' htmlFor='image'>
 						Image
 					</label>
-					<input placeholder='Add a picture link.' {...register('image')} />
+					<input placeholder='Add a picture link.(optional)' {...register('image')} />
 				</FormControl>
 				<FormControl>
 					<label id='category' htmlFor='category'>
 						Category
 					</label>
-					<select id='category' {...register('category')}>
+					<select id='category' required {...register('category')}>
 						<option value='clothing'>Clothing</option>
 						<option value='movies'>Movies</option>
 						<option value='music'>Music</option>
@@ -169,6 +170,7 @@ const TrendForm = ({
 								type='radio'
 								id='public'
 								value='public'
+                required
 								{...register('privacy')}
 							/>
 							<label className='public' htmlFor='public'>
