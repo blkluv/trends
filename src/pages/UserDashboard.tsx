@@ -36,7 +36,7 @@ const UserDashboard = () => {
     return <p>Please <NavLink to='/auth'>login</NavLink> to access your dashboard</p>;
 
   if(usersTrends?.length === 0)
-    return <p className="no-trends-message">It looks like you haven't made any trends yet. You can make one <NavLink to='/create-trend'>here</NavLink>. Once you do that all your trends will be listed in this dashboard, where you can edit and delete them.</p>
+    return <p className="no-trends-message">It looks like you haven't made any trends yet. You can make one <NavLink to='/create-trend'>here</NavLink>.</p>
 
 	return (
 		<UserDashboardStyles>
@@ -135,4 +135,5 @@ const UserDashboardStyles = styled.div`
   .delete, .edit{
     border-radius: 0.2rem;
   }
+
 `;
