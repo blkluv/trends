@@ -8,9 +8,10 @@ import { Trend } from '../interfaces/trend';
 import Modal from '../components/Modal';
 import TrendForm from '../components/TrendForm';
 import Icon from '../components/Icon';
+import { NavLink } from 'react-router-dom';
 
 const UserDashboard = () => {
-	const [username, user_id, storedTrends, setTrends] = useTrendingStore((store) => [store.username, store.user_id, store.trends, store.setTrends]);
+	const [username, user_id, storedTrends, setTrends, authToken] = useTrendingStore((store) => [store.username, store.user_id, store.trends, store.setTrends, store.authToken]);
 	const [showForm, setShowForm] = useState<number|null>(null);
 	const usersTrends = filterTrendsByKeyValue(
 		'user_id',
@@ -30,6 +31,12 @@ const UserDashboard = () => {
 		setShowForm(null);
 		return showForm;
 	};
+
+  if(!authToken)
+    return <p>Please <NavLink to='/auth'>login</NavLink> to access your dashboard</p>;
+
+  if(usersTrends?.length === 0)
+    return <p className="no-trends-message">It looks like you haven't made any trends yet. You can make one <NavLink to='/create-trend'>here</NavLink>. Once you do that all your trends will be listed in this dashboard, where you can edit and delete them.</p>
 
 	return (
 		<UserDashboardStyles>
