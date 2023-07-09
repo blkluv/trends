@@ -3,7 +3,7 @@ import { createComment } from "../services/apiComments"
 import { CommentData, Comment } from "../interfaces/comment"
 import { useTrendingStore } from "../store";
 
-export const useMutateComments = () => {
+export const useMutateCreateComment = () => {
   const queryClient = useQueryClient();
   const [prevStoredComments, setComments] = useTrendingStore(store => [store.comments, store.setComments]);
   
