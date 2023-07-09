@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useTrendingStore } from '../store';
-import { filterTrendsByKeyValue } from '../utility/filters';
+import { filterCommentsByUser, filterTrendsByKeyValue } from '../utility/filters';
 import moment from 'moment';
 import { deleteTrend } from '../services/apiTrends';
 import { useState } from 'react';
@@ -11,32 +11,53 @@ import Icon from '../components/Icon';
 import { NavLink } from 'react-router-dom';
 
 const UserDashboard = () => {
-	const [username, user_id, storedTrends, setTrends, authToken] = useTrendingStore((store) => [store.username, store.user_id, store.trends, store.setTrends, store.authToken]);
-	const [showForm, setShowForm] = useState<number|null>(null);
-	const usersTrends = filterTrendsByKeyValue(
-		'user_id',
+	const [
+		username,
 		user_id,
-		storedTrends
-	);
+		storedTrends,
+		setTrends,
+		storedComments,
+		authToken,
+	] = useTrendingStore((store) => [
+		store.username,
+		store.user_id,
+		store.trends,
+		store.setTrends,
+		store.comments,
+		store.authToken,
+	]);
+	const [showForm, setShowForm] = useState<number | null>(null);
+	const usersTrends = filterTrendsByKeyValue('user_id', user_id, storedTrends);
+  const usersComments = filterCommentsByUser(username, storedComments);
 
-	const onDeleteTrend = async(trend: Trend) => {
-    if(!confirm("Are you sure you want to delete this trend?"))
-      return;
+	const onDeleteTrend = async (trend: Trend) => {
+		if (!confirm('Are you sure you want to delete this trend?')) return;
 
 		await deleteTrend(trend.id); // delete in db
-		setTrends(storedTrends?.filter((storedTrend) => storedTrend.id !== trend.id)); // delete in store
+		setTrends(
+			storedTrends?.filter((storedTrend) => storedTrend.id !== trend.id)
+		); // delete in store
 	};
 
-  const closeModal = () => {
+	const closeModal = () => {
 		setShowForm(null);
 		return showForm;
 	};
 
-  if(!authToken)
-    return <p>Please <NavLink to='/auth'>login</NavLink> to access your dashboard</p>;
+	if (!authToken)
+		return (
+			<p>
+				Please <NavLink to='/auth'>login</NavLink> to access your dashboard
+			</p>
+		);
 
-  if(usersTrends?.length === 0)
-    return <p className="no-trends-message">It looks like you haven't made any trends yet. You can make one <NavLink to='/create-trend'>here</NavLink>.</p>
+	if (usersTrends?.length === 0)
+		return (
+			<p className='no-trends-message'>
+				It looks like you haven't made any trends yet. You can make one{' '}
+				<NavLink to='/create-trend'>here</NavLink>.
+			</p>
+		);
 
 	return (
 		<UserDashboardStyles>
@@ -45,17 +66,27 @@ const UserDashboard = () => {
 				<div className='trend-info-container'>
 					<div className='trend-info'>
 						<div className='title'>Title: {trend.alt}</div>
-						<p className='description'>Content: {trend.content.slice(0, 30)}...</p>
+						<p className='description'>
+							Content: {trend.content.slice(0, 30)}...
+						</p>
 						<div className='date-created'>
 							Date: {moment(trend.created_at).format('MMMM Do YYYY, h:mm:ss a')}
 						</div>
 					</div>
 					<div>
-						<button className='edit' title='edit' onClick={() => setShowForm(showForm === trend.id ? null : trend.id)}>
-							<Icon icon='edit'/>
+						<button
+							className='edit'
+							title='edit'
+							onClick={() =>
+								setShowForm(showForm === trend.id ? null : trend.id)
+							}>
+							<Icon icon='edit' />
 						</button>
-						<button className='delete' title='delete' onClick={() => onDeleteTrend(trend)}>
-            <Icon icon='delete'/>
+						<button
+							className='delete'
+							title='delete'
+							onClick={() => onDeleteTrend(trend)}>
+							<Icon icon='delete' />
 						</button>
 					</div>
 					{showForm === trend.id && (
@@ -77,6 +108,16 @@ const UserDashboard = () => {
 					)}
 				</div>
 			))}
+			<h2>{username}'s Comments</h2>
+			{usersComments.map((comment) => (
+				<div className='comment-info-container'>
+					<div className="comment-info">
+            <div className='comment'>Comment: {comment.content}</div>
+            <div className='author'>Date: {moment(comment.created_at).format('MMMM Do YYYY, h:mm:ss a')}</div>
+            <div className='trend'>Trend: {comment.trend_id}</div>
+          </div>
+				</div>
+			))}
 		</UserDashboardStyles>
 	);
 };
@@ -90,7 +131,7 @@ const UserDashboardStyles = styled.div`
 
 	.title,
 	.description,
-	.date-created {
+	.date-created, .comment, .author {
 		font-size: 0.8rem;
 	}
 
@@ -104,10 +145,18 @@ const UserDashboardStyles = styled.div`
 		align-items: flex-end;
 		text-align: left;
 	}
+  .trend-info, .comment-info {
+    padding: 0.2rem;
+  }
 
-	.trend-info {
-		padding: 0.2rem;
+	.comment-info-container {
+		border: 1px solid var(--color-black-100);
+		margin: 0.1rem;
+		background-color: var(--color-white-100);
+		border-radius: 0.2rem;
+		text-align: left;
 	}
+
 
 	.delete {
 		margin: 0.2rem;
@@ -132,8 +181,8 @@ const UserDashboardStyles = styled.div`
 		}
 	}
 
-  .delete, .edit{
-    border-radius: 0.2rem;
-  }
-
+	.delete,
+	.edit {
+		border-radius: 0.2rem;
+	}
 `;
