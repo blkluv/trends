@@ -15,7 +15,7 @@ interface Props {
 
 // ! Add input validation to improve UX
 const CommentForm = ({ username, id }: Props) => {
-	const theme = useTrendingStore((store) => store.theme);
+	const [theme, trends] = useTrendingStore((store) => [store.theme, store.trends]);
 	const { register, handleSubmit } = useForm();
 	const {
 		isError: isCommentError,
@@ -23,10 +23,12 @@ const CommentForm = ({ username, id }: Props) => {
 		mutate: mutateComments,
 	} = useMutateComments();
   const commentError: any = commentErr;
+  console.log(trends);
 	// Commenting
 	const onSubmitComment = ({ commentContent }: FieldValues) => {
 		const newComment = {
 			trend_id: id,
+      trend_title: trends?.find(trend => trend.id === id)?.alt || '',
 			content: commentContent,
 			author: username,
 		};
