@@ -43,3 +43,18 @@ export const updateComment = async(comment: CommentData) => {
 
 	return data[0]; // returns comment in an array
 }
+
+export const deleteComment = async (commentId: number) => {
+	const { error, data } = await supabase
+  .from('comments')
+  .delete()
+  .eq('id', commentId)
+  .select();
+
+	if (error) {
+		console.log(error);
+		throw error;
+	}
+
+  return data[0];
+};

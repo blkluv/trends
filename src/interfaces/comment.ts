@@ -13,4 +13,5 @@ export interface Comment{
   author: string;
   content: string;
   trend_id: number;
+  trend_title: string;
 }

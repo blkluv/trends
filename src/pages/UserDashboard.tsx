@@ -13,7 +13,10 @@ import TrendForm from '../components/TrendForm';
 import Icon from '../components/Icon';
 import { NavLink } from 'react-router-dom';
 import DashboardCommentForm from '../components/DashboardCommentForm';
+import { deleteComment } from '../services/apiComments';
+import toast from 'react-hot-toast';
 
+// ! Split this into several components and add different returns for if no trends, no comments, neither of the two etc.
 const UserDashboard = () => {
 	const [
 		username,
@@ -21,6 +24,7 @@ const UserDashboard = () => {
 		storedTrends,
 		setTrends,
 		storedComments,
+    setComments,
 		authToken,
 	] = useTrendingStore((store) => [
 		store.username,
@@ -28,6 +32,7 @@ const UserDashboard = () => {
 		store.trends,
 		store.setTrends,
 		store.comments,
+    store.setComments,
 		store.authToken,
 	]);
 	const [showTrendForm, setShowTrendForm] = useState<number | null>(null);
@@ -38,18 +43,37 @@ const UserDashboard = () => {
 	const onDeleteTrend = async (trend: Trend) => {
 		if (!confirm('Are you sure you want to delete this trend?')) return;
 
-		await deleteTrend(trend.id); // delete in db
+    try{
+		const result = await deleteTrend(trend.id); // delete in db
+    if(!result)
+      return toast.error('Something went wrong...');
+    } catch(err: any){
+      toast.error(err.message);
+    }
 		setTrends(
 			storedTrends?.filter((storedTrend) => storedTrend.id !== trend.id)
 		); // delete in store
 	};
+
+  const onDeleteComment = async(commentId: number) => {
+    if(!confirm('Are you sure you want to delete this comment?')) return;
+
+    try{
+    const result = await deleteComment(commentId);
+    if(!result)
+      return toast.error('Something went wrong...');
+    } catch(err: any){
+      toast.error(err.message);
+    }
+
+    setComments(storedComments?.filter(comment => comment.id !== commentId));
+  }
 
 	const closeModal = (modalType: 'trend-modal' | 'comment-modal') => {
 		if (modalType === 'trend-modal') {
 			setShowTrendForm(null);
 			return showTrendForm;
 		}
-
 		// else comment-modal
 		setShowCommentForm(null);
 		return showCommentForm;
@@ -86,7 +110,7 @@ const UserDashboard = () => {
 								{moment(trend.created_at).format('MMMM Do YYYY, h:mm:ss a')}
 							</div>
 						</div>
-						<div>
+						<div className="buttons">
 							<button
 								className='edit'
 								title='edit'
@@ -125,22 +149,24 @@ const UserDashboard = () => {
 				{usersComments.map((comment) => (
 					<div className='comment-info-container'>
 						<div className='comment-info'>
-							<div>{comment.id}</div>
+							<div className='trend'>Trend: {comment.trend_title}</div>
 							<div className='comment'>Comment: {comment.content}</div>
 							<div className='author'>
 								Date:{' '}
 								{moment(comment.created_at).format('MMMM Do YYYY, h:mm:ss a')}
 							</div>
-							<div className='trend'>Trend: {comment.trend_id}</div>
 						</div>
-						<button
-							onClick={() =>
-								setShowCommentForm(
-									comment.id === showCommentForm ? null : comment.id
-								)
-							}>
-							Edit
-						</button>
+						<div className='buttons'>
+              <button className='edit'
+                onClick={() =>
+                  setShowCommentForm(
+                    comment.id === showCommentForm ? null : comment.id
+                  )
+                }>
+                <Icon icon='edit' />
+              </button>
+              <button className='delete' onClick={() => onDeleteComment(comment.id)}><Icon icon='delete' /></button>
+            </div>
 						{showCommentForm === comment.id && (
 							<Modal maxHeight={'40vh'} onCloseModal={() => closeModal('comment-modal')}>
 								<DashboardCommentForm
@@ -189,6 +215,9 @@ const UserDashboardStyles = styled.div`
 	}
 
 	.comment-info-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
 		border: 1px solid var(--color-black-100);
 		margin: 0.1rem;
 		background-color: var(--color-white-100);

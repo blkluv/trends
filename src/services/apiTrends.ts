@@ -60,15 +60,18 @@ export const updateTrend = async(trend: TrendData, trendId: number): Promise<Tre
 }
 
 export const deleteTrend = async (trendId: number) => {
-	const { error } = await supabase
+	const { error, data } = await supabase
   .from('trends')
   .delete()
-  .eq('id', trendId);
+  .eq('id', trendId)
+  .select();
 
 	if (error) {
 		console.log(error);
 		throw error;
 	}
+
+  return data;
 };
 
 
