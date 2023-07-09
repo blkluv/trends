@@ -142,7 +142,7 @@ const UserDashboard = () => {
 							Edit
 						</button>
 						{showCommentForm === comment.id && (
-							<Modal onCloseModal={() => closeModal('comment-modal')}>
+							<Modal maxHeight={'40vh'} onCloseModal={() => closeModal('comment-modal')}>
 								<DashboardCommentForm
 									initialFormFields={{ id: comment.id, comment: comment.content }}
 									username={username}
