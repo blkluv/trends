@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import { useTrendingStore } from '../store';
-import { filterCommentsByUser, filterTrendsByKeyValue } from '../utility/filters';
+import {
+	filterCommentsByUser,
+	filterTrendsByKeyValue,
+} from '../utility/filters';
 import moment from 'moment';
 import { deleteTrend } from '../services/apiTrends';
 import { useState } from 'react';
@@ -9,6 +12,7 @@ import Modal from '../components/Modal';
 import TrendForm from '../components/TrendForm';
 import Icon from '../components/Icon';
 import { NavLink } from 'react-router-dom';
+import DashboardCommentForm from '../components/DashboardCommentForm';
 
 const UserDashboard = () => {
 	const [
@@ -26,9 +30,10 @@ const UserDashboard = () => {
 		store.comments,
 		store.authToken,
 	]);
-	const [showForm, setShowForm] = useState<number | null>(null);
+	const [showTrendForm, setShowTrendForm] = useState<number | null>(null);
+	const [showCommentForm, setShowCommentForm] = useState<number | null>(null);
 	const usersTrends = filterTrendsByKeyValue('user_id', user_id, storedTrends);
-  const usersComments = filterCommentsByUser(username, storedComments);
+	const usersComments = filterCommentsByUser(username, storedComments);
 
 	const onDeleteTrend = async (trend: Trend) => {
 		if (!confirm('Are you sure you want to delete this trend?')) return;
@@ -39,9 +44,15 @@ const UserDashboard = () => {
 		); // delete in store
 	};
 
-	const closeModal = () => {
-		setShowForm(null);
-		return showForm;
+	const closeModal = (modalType: 'trend-modal' | 'comment-modal') => {
+		if (modalType === 'trend-modal') {
+			setShowTrendForm(null);
+			return showTrendForm;
+		}
+
+		// else comment-modal
+		setShowCommentForm(null);
+		return showCommentForm;
 	};
 
 	if (!authToken)
@@ -61,63 +72,87 @@ const UserDashboard = () => {
 
 	return (
 		<UserDashboardStyles>
-			<h2>{username}'s Trends</h2>
-			{usersTrends.map((trend) => (
-				<div className='trend-info-container'>
-					<div className='trend-info'>
-						<div className='title'>Title: {trend.alt}</div>
-						<p className='description'>
-							Content: {trend.content.slice(0, 30)}...
-						</p>
-						<div className='date-created'>
-							Date: {moment(trend.created_at).format('MMMM Do YYYY, h:mm:ss a')}
+			<>
+				<h2>{username}'s Trends</h2>
+				{usersTrends.map((trend) => (
+					<div className='trend-info-container'>
+						<div className='trend-info'>
+							<div className='title'>Title: {trend.alt}</div>
+							<p className='description'>
+								Content: {trend.content.slice(0, 30)}...
+							</p>
+							<div className='date-created'>
+								Date:{' '}
+								{moment(trend.created_at).format('MMMM Do YYYY, h:mm:ss a')}
+							</div>
 						</div>
+						<div>
+							<button
+								className='edit'
+								title='edit'
+								onClick={() =>
+									setShowTrendForm(showTrendForm === trend.id ? null : trend.id)
+								}>
+								<Icon icon='edit' />
+							</button>
+							<button
+								className='delete'
+								title='delete'
+								onClick={() => onDeleteTrend(trend)}>
+								<Icon icon='delete' />
+							</button>
+						</div>
+						{showTrendForm === trend.id && (
+							<Modal onCloseModal={() => closeModal('trend-modal')}>
+								<TrendForm
+									formTitle={'Edit Trend'}
+									formButtonText='update'
+									views={trend.views}
+									initialFormFields={{
+										id: trend.id,
+										title: trend.alt,
+										content: trend.content,
+										image: trend.image,
+										category: trend.category,
+										author_privacy: trend.author_privacy,
+									}}
+								/>
+							</Modal>
+						)}
 					</div>
-					<div>
+				))}
+				<h2>{username}'s Comments</h2>
+				{usersComments.map((comment) => (
+					<div className='comment-info-container'>
+						<div className='comment-info'>
+							<div>{comment.id}</div>
+							<div className='comment'>Comment: {comment.content}</div>
+							<div className='author'>
+								Date:{' '}
+								{moment(comment.created_at).format('MMMM Do YYYY, h:mm:ss a')}
+							</div>
+							<div className='trend'>Trend: {comment.trend_id}</div>
+						</div>
 						<button
-							className='edit'
-							title='edit'
 							onClick={() =>
-								setShowForm(showForm === trend.id ? null : trend.id)
+								setShowCommentForm(
+									comment.id === showCommentForm ? null : comment.id
+								)
 							}>
-							<Icon icon='edit' />
+							Edit
 						</button>
-						<button
-							className='delete'
-							title='delete'
-							onClick={() => onDeleteTrend(trend)}>
-							<Icon icon='delete' />
-						</button>
+						{showCommentForm === comment.id && (
+							<Modal onCloseModal={() => closeModal('comment-modal')}>
+								<DashboardCommentForm
+									initialFormFields={{ id: comment.id, comment: comment.content }}
+									username={username}
+									trendId={comment.trend_id}
+								/>
+							</Modal>
+						)}
 					</div>
-					{showForm === trend.id && (
-						<Modal onCloseModal={closeModal}>
-							<TrendForm
-								formTitle={'Edit Trend'}
-								formButtonText='update'
-								views={trend.views}
-								initialFormFields={{
-									id: trend.id,
-									title: trend.alt,
-									content: trend.content,
-									image: trend.image,
-									category: trend.category,
-									author_privacy: trend.author_privacy,
-								}}
-							/>
-						</Modal>
-					)}
-				</div>
-			))}
-			<h2>{username}'s Comments</h2>
-			{usersComments.map((comment) => (
-				<div className='comment-info-container'>
-					<div className="comment-info">
-            <div className='comment'>Comment: {comment.content}</div>
-            <div className='author'>Date: {moment(comment.created_at).format('MMMM Do YYYY, h:mm:ss a')}</div>
-            <div className='trend'>Trend: {comment.trend_id}</div>
-          </div>
-				</div>
-			))}
+				))}
+			</>
 		</UserDashboardStyles>
 	);
 };
@@ -131,7 +166,10 @@ const UserDashboardStyles = styled.div`
 
 	.title,
 	.description,
-	.date-created, .comment, .author {
+	.date-created,
+	.comment,
+	.author,
+	.trend {
 		font-size: 0.8rem;
 	}
 
@@ -145,9 +183,10 @@ const UserDashboardStyles = styled.div`
 		align-items: flex-end;
 		text-align: left;
 	}
-  .trend-info, .comment-info {
-    padding: 0.2rem;
-  }
+	.trend-info,
+	.comment-info {
+		padding: 0.2rem;
+	}
 
 	.comment-info-container {
 		border: 1px solid var(--color-black-100);
@@ -156,7 +195,6 @@ const UserDashboardStyles = styled.div`
 		border-radius: 0.2rem;
 		text-align: left;
 	}
-
 
 	.delete {
 		margin: 0.2rem;
