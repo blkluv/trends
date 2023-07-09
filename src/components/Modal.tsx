@@ -1,9 +1,11 @@
 import styled from 'styled-components';
+import { IStyledProps } from '../interfaces/cssComponentStyles';
 
 interface Props {
 	children?: any;
 	title?: string;
 	buttonText?: string;
+  maxHeight?: string;
 	onCloseModal: () => void;
 }
 
@@ -11,6 +13,7 @@ const Modal = ({
 	children = '',
 	title = '',
 	buttonText = 'close',
+  maxHeight,
 	onCloseModal,
 }: Props) => {
 
@@ -20,11 +23,13 @@ const Modal = ({
   }
 	return (
 		<OutterModalStyles className='outer' onClick={onBackgroundClick}>
-      <ModalStyles onClick={onBackgroundClick}>
-        <h1 className='title'>{title}</h1>
-        <div className='content'>{children}</div>
-        <div className='button-container'>
-          <button className='close-button' onClick={() => onCloseModal()}>{buttonText}</button>
+      <ModalStyles maxHeight={maxHeight} onClick={onBackgroundClick}>
+        <div className='container'>
+          <h1 className='title'>{title}</h1>
+          <div className='content'>{children}</div>
+          <div className='button-container'>
+            <button className='close-button' onClick={() => onCloseModal()}>{buttonText}</button>
+          </div>
         </div>
       </ModalStyles>
     </OutterModalStyles>
@@ -34,7 +39,7 @@ const Modal = ({
 export default Modal;
 
 // CSS Components
-const ModalStyles = styled.div`
+const ModalStyles = styled.div<IStyledProps>`
 	background: #0091ff78;
 	position: fixed;
 	top: 0;
@@ -43,6 +48,14 @@ const ModalStyles = styled.div`
 	bottom: 0;
   margin: 5% 12%;
   border-radius: 0.1rem;
+
+  ${props => props.maxHeight ? 'max-height: ' + props.maxHeight : 'max-height: 100vh'};
+  ${props => props.maxHeight ? 'display: flex; justify-content: center; align-items: center;' : 'display: block'};
+  .container{
+    ${props => props.maxHeight ? 'width: 100vw' : ''}; 
+  }
+
+
 
 	button{
     padding: 0 0.3rem;
