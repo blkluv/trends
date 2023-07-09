@@ -79,18 +79,10 @@ export default DashboardCommentForm;
 
 //CSS Components
 const StyledCommentForm = styled.div<IStyledProps>`
-	${(props) =>
-		props.setting === 'light'
-			? 'color:  var(--color-black-500);'
-			: 'color:  var(--color-grey-500);'};
 
-	h2 {
-		${(props) =>
-			props.setting === 'light'
-				? 'color:  var(--color-indigo-50);'
-				: 'color:  var(--color-pink-100);'};
-		font-size: 1.2rem;
-	}
+  h2{
+    font-size: 1.2rem;
+  }
 	@media only screen and (max-width: 500px) {
 		h2 {
 			font-size: 1rem;
