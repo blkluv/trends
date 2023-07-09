@@ -9,4 +9,5 @@ export interface IStyledProps{
   imageMaxHeight?: string;
   fontSize?: string;
   border?: string;
+  maxHeight?: string;
 }
