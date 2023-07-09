@@ -14,7 +14,7 @@ export interface Trend{ // Contains all data as on the server.
   user_id: string;
 }
 
-// Same as Trend interface but without created_at and id, which are created on server
+// Same as Trend interface but without created_at and id is optional for when creating a new trend. id and created_at are created on server
 export interface TrendData{
   id?: number; // created on server
 

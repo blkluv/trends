@@ -1,4 +1,6 @@
 export interface CommentData{
+  id?: number;
+  
   author: string;
   content: string;
   trend_id: number;
