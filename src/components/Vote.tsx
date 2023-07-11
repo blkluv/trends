@@ -55,11 +55,11 @@ const Vote = ({ likes, dislikes, id }: Props) => {
   
   return ( <VoteStyles>
   <span className='like-icon'>
-    <FaHeart className='like' onClick={() => vote('like')} />
+    <FaHeart className='like' title='like' onClick={() => vote('like')} />
     {data.likes}
   </span>
   <span className='dislike-icon'>
-    <FaHeartBroken onClick={() => vote('dislike')} /> {data.dislikes}
+    <FaHeartBroken title='dislike' onClick={() => vote('dislike')} /> {data.dislikes}
   </span>
 </VoteStyles> );
 }

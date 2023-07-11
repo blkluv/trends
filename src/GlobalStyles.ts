@@ -31,6 +31,7 @@ height: 100%;
 --color-indigo-100:#0059ff;
 --color-indigo-500:#1e56ff;
 
+--color-light-blue-50:#00b3ffd2;
 --color-light-blue-100:#00b3ff;
 
 --color-blue-50: #016cc327;

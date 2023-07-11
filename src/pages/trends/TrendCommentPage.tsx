@@ -131,8 +131,14 @@ const TrendCommentPageStyles = styled.div<IStyledProps>`
 
 	.message {
 		margin-bottom: 0.1rem;
-		color: var(--color-light-blue-100);
+    color: var(--color-light-blue-50);
 		cursor: pointer;
+    transition: all 0.3s;
+    
+    &:hover{
+      transform: scale(1.1);
+      color: var(--color-light-blue-100);
+    }
 	}
 
 	.views-and-message {
