@@ -34,11 +34,12 @@ const TrendCommentPage = () => {
 		</p>
 	);
 
-  const goToPrivateMessagePage = () => {
-    navigate('/private-message', {
+  const createPrivateMessage = () => {
+    navigate('/create-private-message', {
 			state: {
 				author,
         user_id, // author's user_id
+        title,
 			},
 		})
   }
@@ -55,7 +56,7 @@ const TrendCommentPage = () => {
 					<span
 						className='message'
             title='private message'
-						onClick={goToPrivateMessagePage}
+						onClick={createPrivateMessage}
             >
 						<Icon fontSize='1rem' icon='mail' />
 					</span>

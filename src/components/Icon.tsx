@@ -1,4 +1,4 @@
-import { TbShirtFilled, TbMovie, TbMusic, TbCpu2, TbDeviceTv, TbPhotoEdit, TbCircleX, TbMail } from 'react-icons/tb';
+import { TbShirtFilled, TbMovie, TbMusic, TbCpu2, TbDeviceTv, TbPhotoEdit, TbCircleX, TbMail, TbMailForward } from 'react-icons/tb';
 import styled from 'styled-components';
 import { IStyledProps } from '../interfaces/cssComponentStyles';
 
@@ -10,9 +10,10 @@ interface Props {
   alignItems?: string;
   paddingBottom?:string;
   marginBottom?:string;
+  border?: string;
 }
 
-const Icon = ({ icon, fontSize, display, justifyContent, alignItems, marginBottom, paddingBottom }: Props) => {
+const Icon = ({ icon, fontSize, display, justifyContent, alignItems, marginBottom, paddingBottom, border }: Props) => {
 	const icons: any = {
 		movie: <TbMovie />,
 		clothing: <TbShirtFilled />,
@@ -21,10 +22,11 @@ const Icon = ({ icon, fontSize, display, justifyContent, alignItems, marginBotto
 		technology: <TbCpu2 />,
     edit: <TbPhotoEdit/>,
     delete: <TbCircleX/>,
-    mail: <TbMail/>
+    mail: <TbMail/>,
+    mailForward: <TbMailForward/>
 	};
 
-	return <IconStyles display={display} fontSize={fontSize} justifyContent={justifyContent} alignItems={alignItems} marginBottom={marginBottom} paddingBottom={paddingBottom}>{icons[icon]}</IconStyles>;
+	return <IconStyles display={display} fontSize={fontSize} justifyContent={justifyContent} alignItems={alignItems} marginBottom={marginBottom} paddingBottom={paddingBottom} border={border}>{icons[icon]}</IconStyles>;
 };
 
 export default Icon;
@@ -38,6 +40,7 @@ const IconStyles = styled.span<IStyledProps>`
   ${(props) => props.justifyContent ? 'justify-content: ' + props.justifyContent : ''};
   ${(props) => props.marginBottom ? 'margin-bottom: ' + props.marginBottom : ''};
   ${(props) => props.paddingBottom ? 'justify-content: ' + props.paddingBottom : ''};
+  ${(props) => props.border ? 'border: ' + props.border : ''};
 
   @media only screen and (max-width: 500px) {
     font-size: 1rem;
