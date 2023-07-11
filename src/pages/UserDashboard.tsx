@@ -9,14 +9,14 @@ import { deleteTrend } from '../services/apiTrends';
 import { useState } from 'react';
 import { Trend } from '../interfaces/trend';
 import Modal from '../components/Modal';
-import TrendForm, { Button } from '../components/TrendForm';
+import TrendForm from '../components/TrendForm';
 import Icon from '../components/Icon';
 import { NavLink, useNavigate } from 'react-router-dom';
 import DashboardCommentForm from '../components/DashboardCommentForm';
 import { deleteComment } from '../services/apiComments';
 import toast from 'react-hot-toast';
 
-// ! Split this into several components and add different returns for if no trends, no comments, neither of the two etc.
+// !Split this into several components and add different returns for if no trends, no comments, neither of the two etc.
 const UserDashboard = () => {
 	const [
 		username,

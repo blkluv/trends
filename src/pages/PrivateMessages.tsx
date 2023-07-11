@@ -10,7 +10,7 @@ const PrivateMessages = () => {
 		store.authToken,
 		store.username,
 	]);
-	const { data: messages, isError, error, isLoading } = useMessages();
+	const { data: messages, isLoading } = useMessages();
 	let usersMessages: Message[] = [];
 	if (messages) usersMessages = filterMessagesByUser(username, messages);
 
