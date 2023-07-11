@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { TrendStyles } from '../../components/Trend';
 import styled from 'styled-components';
 import { useTrendingStore } from '../../store';
@@ -14,7 +14,8 @@ import Icon from '../../components/Icon';
 
 const TrendCommentPage = () => {
 	const location = useLocation();
-	const { author, created_at, title, content, image, likes, dislikes, id } =
+  const navigate = useNavigate();
+	const { author, user_id, created_at, title, content, image, likes, dislikes, id } =
 		location.state;
 
 	const theme = useTrendingStore((store) => store.theme);
@@ -33,6 +34,15 @@ const TrendCommentPage = () => {
 		</p>
 	);
 
+  const goToPrivateMessagePage = () => {
+    navigate('/private-message', {
+			state: {
+				author,
+        user_id, // author's user_id
+			},
+		})
+  }
+
 	return (
 		<TrendCommentPageStyles setting={theme}>
 			<TrendStyles setting={theme}>
@@ -43,8 +53,10 @@ const TrendCommentPage = () => {
 				<Vote likes={likes} dislikes={dislikes} id={id} />
 				<div className='views-and-message'>
 					<span
-						onClick={() => console.log('Sending message..')}
-						className='message'>
+						className='message'
+            title='private message'
+						onClick={goToPrivateMessagePage}
+            >
 						<Icon fontSize='1rem' icon='mail' />
 					</span>
 					<Views increaseViewsCount={true} trendId={id} />
