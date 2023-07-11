@@ -10,4 +10,5 @@ export interface IStyledProps{
   fontSize?: string;
   border?: string;
   maxHeight?: string;
+  display?: string;
 }

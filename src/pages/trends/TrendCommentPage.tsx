@@ -10,6 +10,7 @@ import moment from 'moment';
 import Views from '../../components/Views';
 import CommentsIcon from '../../components/CommentsIcon';
 import { IStyledProps } from '../../interfaces/cssComponentStyles';
+import Icon from '../../components/Icon';
 
 const TrendCommentPage = () => {
 	const location = useLocation();
@@ -27,7 +28,9 @@ const TrendCommentPage = () => {
 	const commentForm = authToken ? (
 		<CommentForm username={username} id={id} />
 	) : (
-		<p className='login-message'>[{<NavLink to="/auth">Login</NavLink>} to comment.]</p>
+		<p className='login-message'>
+			[{<NavLink to='/auth'>Login</NavLink>} to comment.]
+		</p>
 	);
 
 	return (
@@ -38,15 +41,22 @@ const TrendCommentPage = () => {
 					<img src={image} width='300px' alt={title} />
 				</div>
 				<Vote likes={likes} dislikes={dislikes} id={id} />
-				<Views increaseViewsCount={true} trendId={id} />
+				<div className='views-and-message'>
+					<span
+						onClick={() => console.log('Sending message..')}
+						className='message'>
+						<Icon fontSize='1rem' icon='mail' />
+					</span>
+					<Views increaseViewsCount={true} trendId={id} />
+				</div>
 				<div className='details'>
 					<p>
 						<span className='bold'></span> {content}
 					</p>
 				</div>
-				<div className='author-and-date-container'>
+				<div className='author-date-message-container'>
 					<div className='author'>
-						@{author}
+						<span className='author-and-message'>@{author}</span>
 						<div className='date-created'>
 							{moment(created_at).format('MMMM Do YYYY, h:mm:ss a')}
 						</div>
@@ -100,10 +110,22 @@ const TrendCommentPageStyles = styled.div<IStyledProps>`
 				: 'color: var(--color-indigo-50)'}
 	}
 
-	.author-and-date-container {
+	.author-date-message-container {
 		${(props) =>
 			props.setting === 'light'
 				? 'color: var(--color-black-100)'
 				: 'color: var(--color-grey-50)'}
+	}
+
+	.message {
+		margin-bottom: 0.1rem;
+		color: var(--color-light-blue-100);
+		cursor: pointer;
+	}
+
+	.views-and-message {
+		display: flex;
+		justify-content: space-between;
+		align-items: end;
 	}
 `;
