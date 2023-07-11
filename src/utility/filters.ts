@@ -37,3 +37,7 @@ export const totalTrendComments = (trendId: number, comments?: Comment[]) => {
 export const filterCommentsByUser = (author: string, comments: Comment[]) => {
   return comments.filter(comment => comment.author === author);
 }
+
+export const filterMessagesByUser = (username: string, messages: Message[]) => {
+  return messages.filter(message => message.to_user === username);
+}
