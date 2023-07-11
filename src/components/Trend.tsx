@@ -17,6 +17,7 @@ interface Props {
 	image: string;
 	likes: number;
 	dislikes: number;
+  user_id: string;
 }
 
 const Trend = ({
@@ -28,6 +29,7 @@ const Trend = ({
 	likes,
 	dislikes,
 	id,
+  user_id
 }: Props) => {
 	const navigate = useNavigate();
 	const [theme, comments] = useTrendingStore((store) => [store.theme, store.comments]);
@@ -36,6 +38,7 @@ const Trend = ({
 		navigate('/trend-comment-page', {
 			state: {
 				author,
+        user_id, // author's user_id
 				created_at,
 				title,
 				content,
