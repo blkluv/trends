@@ -9,9 +9,9 @@ import { deleteTrend } from '../services/apiTrends';
 import { useState } from 'react';
 import { Trend } from '../interfaces/trend';
 import Modal from '../components/Modal';
-import TrendForm from '../components/TrendForm';
+import TrendForm, { Button } from '../components/TrendForm';
 import Icon from '../components/Icon';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import DashboardCommentForm from '../components/DashboardCommentForm';
 import { deleteComment } from '../services/apiComments';
 import toast from 'react-hot-toast';
@@ -39,6 +39,7 @@ const UserDashboard = () => {
 	const [showCommentForm, setShowCommentForm] = useState<number | null>(null);
 	const usersTrends = filterTrendsByKeyValue('user_id', user_id, storedTrends);
 	const usersComments = filterCommentsByUser(username, storedComments);
+  const navigate = useNavigate();
 
 	const onDeleteTrend = async (trend: Trend) => {
 		if (!confirm('Are you sure you want to delete this trend?')) return;
@@ -97,6 +98,9 @@ const UserDashboard = () => {
 	return (
 		<UserDashboardStyles>
 			<>
+      <div className="private-messages-container">
+        <div className='private-messages' onClick={() => navigate('/private-messages')}><Icon icon='mailForward'/>Messages</div>
+      </div>
 				<h2>{username}'s Trends</h2>
 				{usersTrends.map((trend) => (
 					<div className='trend-info-container'>
@@ -252,4 +256,31 @@ const UserDashboardStyles = styled.div`
 	.edit {
 		border-radius: 0.2rem;
 	}
+
+  .private-messages-container{
+    text-align: left;
+  }
+  .private-messages{
+    display: inline-block;
+    padding: 0.2rem;
+    margin: 0.1rem;
+    background-color: white;
+    border-radius: 0.1rem;
+    border: 1px solid black;
+    transition: all 0.3s;
+    font-size: 0.1rem;
+    box-shadow: 0.1px 0.1px 1px 1px var(--color-light-blue-100);
+    
+    &:hover{
+      cursor: pointer;
+      color: var(--color-light-blue-100);
+      background: var(--color-black-100);
+      border: 1px solid var(--color-light-blue-100);
+      box-shadow: 0.1px 0.1px 0.2px 1px var(--color-light-blue-100);
+      transform: scale(0.95);
+    }
+
+    &:focus{
+    }
+  }
 `;
