@@ -3,6 +3,7 @@ import { Button, FormControl } from '../components/TrendForm';
 import { FieldValues, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { StyledForm } from '../components/CssComponents/StyledComponents';
+import Icon from '../components/Icon';
 
 const PrivateMessage = () => {
 	const location = useLocation();
@@ -18,7 +19,7 @@ const PrivateMessage = () => {
 			<form onSubmit={handleSubmit(onSubmitMessage)}>
 				<FormControl className='form-control'>
 					<label id='content' htmlFor='content'>
-						Message for {author}
+						<Heading>Message for {author}<Icon icon="mail" display='flex' marginBottom='0.25rem'/></Heading>
 					</label>
 					<textarea
 						maxLength={1000}
@@ -35,3 +36,11 @@ const PrivateMessage = () => {
 };
 
 export default PrivateMessage;
+
+// CSS Components
+const Heading = styled.h1` 
+  font-size: 1.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+`

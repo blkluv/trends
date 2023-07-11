@@ -4,6 +4,8 @@ export interface IStyledProps{
   trendWidth?: string;
   trendMaxHeight?: string;
   margin?: string;
+  marginBottom?: string;
+  paddingBottom?: string;
   padding?: string;
   imageMaxWidth?: string;
   imageMaxHeight?: string;
@@ -11,4 +13,6 @@ export interface IStyledProps{
   border?: string;
   maxHeight?: string;
   display?: string;
+  justifyContent?: string;
+  alignItems?: string;
 }
