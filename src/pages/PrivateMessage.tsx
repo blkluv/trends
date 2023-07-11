@@ -1,19 +1,42 @@
-import { useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { Button, FormControl } from '../components/TrendForm';
 import { FieldValues, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { StyledForm } from '../components/CssComponents/StyledComponents';
+import toast from 'react-hot-toast';
 import Icon from '../components/Icon';
+import { useNavigate } from 'react-router-dom';
+import { useTrendingStore } from '../store';
+import { useMutateMessages } from '../hooks/useMutateMessages';
 
 const PrivateMessage = () => {
+  const [username, user_id, authToken] = useTrendingStore(store => [store.username, store.user_id, store.authToken]);
+  const navigate = useNavigate();
 	const location = useLocation();
-	const { register, setValue, handleSubmit } = useForm();
-	const { author, user_id } = location.state;
-	console.log(author, user_id);
+	const { register, handleSubmit } = useForm();
+	const { author, user_id: to_user_id } = location.state;
+	const { mutate, isError, error } = useMutateMessages();
 
-	const onSubmitMessage = ({ content }: FieldValues) => {
-		console.log(content);
+	const onSubmitMessage = async({ content }: FieldValues) => {
+    const newMessage = {content, to_user: author, to_user_id, from_user: username, user_id };
+    mutate(newMessage);
+
+    if(isError)
+      return toast.error(error as any);
+    
+    toast.success("Message sent.");
+    navigate(-1);
 	};
+
+  // Not logged in user
+	if (!authToken)
+  return (
+    <p>
+      Users must {<NavLink to='/auth'>login</NavLink>} before sending messages.
+    </p>
+  );
+
+// Logged in user
 	return (
 		<StyledForm>
 			<form onSubmit={handleSubmit(onSubmitMessage)}>
