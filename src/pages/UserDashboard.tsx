@@ -266,18 +266,16 @@ const UserDashboardStyles = styled.div`
     margin: 0.1rem;
     background-color: white;
     border-radius: 0.1rem;
-    border: 1px solid black;
     transition: all 0.3s;
     font-size: 0.1rem;
-    box-shadow: 0.1px 0.1px 1px 1px var(--color-light-blue-100);
+    box-shadow: 0.1px 0.1px 1.4px 0.6px var(--color-light-blue-100);
     
     &:hover{
       cursor: pointer;
       color: var(--color-light-blue-100);
       background: var(--color-black-100);
-      border: 1px solid var(--color-light-blue-100);
-      box-shadow: 0.1px 0.1px 0.2px 1px var(--color-light-blue-100);
-      transform: scale(0.95);
+      box-shadow: 0.1px 0.1px 2.8px 1.2px var(--color-light-blue-100);
+      transform: scale(1.1);
     }
 
     &:focus{
