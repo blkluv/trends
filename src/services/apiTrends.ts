@@ -19,7 +19,7 @@ export const getTrends = async () => {
 	return sortTrends(trends);
 };
 
-export const getTrend = async(id: number) => {
+export const getTrend = async(id: number): Promise<Trend> => {
   const { data: trends, error } = await supabase
   .from('trends')
   .select("*")
@@ -93,9 +93,9 @@ export const updateViewCount = async(value: number, id: number) => {
 
 // == Votes ==
 export const getLikesAndDislikes = async(id: number) => {
-  const {likes, dislikes} = await getTrend(id);
+  const {alt, likes, dislikes} = await getTrend(id);
   
-  return {id, likes, dislikes};
+  return {id, title: alt, likes, dislikes};
 }
 
 export const updateLikesOrDislikes = async (info: {id: number, value: number, type: 'likes' | 'dislikes'}) => {
@@ -103,7 +103,8 @@ export const updateLikesOrDislikes = async (info: {id: number, value: number, ty
 	const { data, error } = await supabase
 		.from('trends')
 		.update({ [type]: value })
-		.eq('id', id);
+		.eq('id', id)
+    .select();
 
 
 	if (error) {
@@ -111,14 +112,14 @@ export const updateLikesOrDislikes = async (info: {id: number, value: number, ty
 		throw error;
 	}
   
-	return data;
+	return data[0];
 };
 
-export const updateVotedList = async(trendId: number, username: string) => {
+export const updateVotedList = async(trendId: number, user_id: string) => {
   const alreadyVotedList: string[] = await getVotedList(trendId);
   const { data, error } = await supabase
   .from('trends')
-  .update({ alreadyVotedList: [...alreadyVotedList, username] })
+  .update({ alreadyVotedList: [...alreadyVotedList, user_id] })
   .eq('id', trendId)
   .select()
 
@@ -144,7 +145,7 @@ const getVotedList = async(trendId: number) => {
   return trends[0].alreadyVotedList;
 }
 
-export const isAlreadyInVotedList = async(trendId: number, username: string) => {
+export const isAlreadyInVotedList = async(trendId: number, user_id: string) => {
   const alreadyVotedList: string[] = await getVotedList(trendId);
-  return alreadyVotedList.some(userString => userString === username );
+  return alreadyVotedList.some(uid => uid === user_id);
 }
