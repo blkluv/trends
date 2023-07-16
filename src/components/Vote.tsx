@@ -12,7 +12,7 @@ interface Props{
   id: number;
 }
 const Vote = ({ likes, dislikes, id }: Props) => {
-  const username = useTrendingStore(store => store.username);
+  const [username, user_id] = useTrendingStore(store => [store.username, store.user_id]);
   const [data, setData] = useState({ likes, dislikes });
   const {
 		isError: isVoteError,
@@ -26,7 +26,7 @@ const Vote = ({ likes, dislikes, id }: Props) => {
     if(!username)
       return {isValid: false, invalidMessage: 'Please login to vote.'};
     // Check if already voted
-    if(await isAlreadyInVotedList(id, username)) 
+    if(await isAlreadyInVotedList(id, user_id)) 
       return {isValid: false, invalidMessage: 'Only one vote is allowed per trend. You already voted for this trend.'};
 
     return {isValid: true, invalidMessage: ''};
@@ -38,7 +38,7 @@ const Vote = ({ likes, dislikes, id }: Props) => {
     const {isValid, invalidMessage } = await validateVoter();
     if(!isValid) return toast.error(invalidMessage);
     // updates db list of who voted
-    updateVotedList(id, username);
+    updateVotedList(id, user_id);
 
 		if (isVoteError) return toast.error(voteError.message);
  
