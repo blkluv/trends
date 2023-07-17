@@ -45,7 +45,6 @@ const UserDashboardStyles = styled.div`
 
 	.title,
 	.description,
-	.date-created,
 	.comment,
 	.author,
 	.trend {
