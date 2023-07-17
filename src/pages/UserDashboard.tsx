@@ -1,21 +1,15 @@
 import styled from 'styled-components';
 import { useTrendingStore } from '../store';
-import {
-	filterTrendsByKeyValue,
-} from '../utility/filters';
 import Icon from '../components/Icon';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import UserDashboardTrends from '../components/UserDashboardTrends';
 import UserDashboardComments from '../components/UserDashboardComments';
 import { useState } from 'react';
 import { Button } from '../components/TrendForm';
 import PrivateMessages from '../components/PrivateMessages';
-import CommentsIcon from '../components/CommentsIcon';
 
-// !Split this into several components and add different returns for if no trends, no comments, neither of the two etc.
 const UserDashboard = () => {
-	const [user_id, storedTrends, authToken] = useTrendingStore((store) => [store.user_id, store.trends, store.authToken]);
-	const usersTrends = filterTrendsByKeyValue('user_id', user_id, storedTrends);
+	const [authToken] = useTrendingStore((store) => [store.authToken]);
   const [subComponent, setSubComponent] = useState('trends');
 
 	if (!authToken)
