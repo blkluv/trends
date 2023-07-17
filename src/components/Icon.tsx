@@ -1,4 +1,5 @@
-import { TbShirtFilled, TbMovie, TbMusic, TbCpu2, TbDeviceTv, TbPhotoEdit, TbCircleX, TbMail, TbMailForward } from 'react-icons/tb';
+import { TbShirtFilled, TbMovie, TbMusic, TbCpu2, TbDeviceTv, TbPhotoEdit, TbCircleX, TbMail, TbMailForward, TbGraph } from 'react-icons/tb';
+import { FaRegComments } from 'react-icons/fa';
 import styled from 'styled-components';
 import { IStyledProps } from '../interfaces/cssComponentStyles';
 
@@ -23,7 +24,9 @@ const Icon = ({ icon, fontSize, display, justifyContent, alignItems, marginBotto
     edit: <TbPhotoEdit/>,
     delete: <TbCircleX/>,
     mail: <TbMail/>,
-    mailForward: <TbMailForward/>
+    mailForward: <TbMailForward/>,
+    comments: <FaRegComments/>,
+    trends: <TbGraph/>
 	};
 
 	return <IconStyles display={display} fontSize={fontSize} justifyContent={justifyContent} alignItems={alignItems} marginBottom={marginBottom} paddingBottom={paddingBottom} border={border}>{icons[icon]}</IconStyles>;
