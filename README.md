@@ -30,11 +30,11 @@ App will be live on localhost:5173.
 <br>
 <br>
 ### Edit and delete trends.
-![Vite-React-TS (7)](https://github.com/katsup07/trending-website/assets/90941888/a4279482-bfd1-4aeb-b8ec-7c398686e014)
+![Vite-React-TS (12)](https://github.com/katsup07/trending-website/assets/90941888/613a8454-6f12-414e-ae5b-e13e0d056693)
 <br>
 <br>
 ### Send and receive private messages.
-![Vite-React-TS (8)](https://github.com/katsup07/trending-website/assets/90941888/3d14e0dd-c9e2-4c20-9ffe-ba544839af16)
+![Vite-React-TS (13)](https://github.com/katsup07/trending-website/assets/90941888/36a3387c-0718-474a-8885-64586bb3d092)
 <br>
 <br>
 ### Switch between dark/light themes and English/Japanese.
