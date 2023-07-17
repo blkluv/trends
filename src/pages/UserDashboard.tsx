@@ -1,84 +1,22 @@
 import styled from 'styled-components';
 import { useTrendingStore } from '../store';
 import {
-	filterCommentsByUser,
 	filterTrendsByKeyValue,
 } from '../utility/filters';
-import moment from 'moment';
-import { deleteTrend } from '../services/apiTrends';
-import { useState } from 'react';
-import { Trend } from '../interfaces/trend';
-import Modal from '../components/Modal';
-import TrendForm from '../components/TrendForm';
 import Icon from '../components/Icon';
 import { NavLink, useNavigate } from 'react-router-dom';
-import DashboardCommentForm from '../components/DashboardCommentForm';
-import { deleteComment } from '../services/apiComments';
-import toast from 'react-hot-toast';
+import UserDashboardTrends from '../components/UserDashboardTrends';
+import UserDashboardComments from '../components/UserDashboardComments';
+import { useState } from 'react';
+import { Button } from '../components/TrendForm';
+import PrivateMessages from '../components/PrivateMessages';
+import CommentsIcon from '../components/CommentsIcon';
 
 // !Split this into several components and add different returns for if no trends, no comments, neither of the two etc.
 const UserDashboard = () => {
-	const [
-		username,
-		user_id,
-		storedTrends,
-		setTrends,
-		storedComments,
-    setComments,
-		authToken,
-	] = useTrendingStore((store) => [
-		store.username,
-		store.user_id,
-		store.trends,
-		store.setTrends,
-		store.comments,
-    store.setComments,
-		store.authToken,
-	]);
-	const [showTrendForm, setShowTrendForm] = useState<number | null>(null);
-	const [showCommentForm, setShowCommentForm] = useState<number | null>(null);
+	const [user_id, storedTrends, authToken] = useTrendingStore((store) => [store.user_id, store.trends, store.authToken]);
 	const usersTrends = filterTrendsByKeyValue('user_id', user_id, storedTrends);
-	const usersComments = filterCommentsByUser(username, storedComments);
-  const navigate = useNavigate();
-
-	const onDeleteTrend = async (trend: Trend) => {
-		if (!confirm('Are you sure you want to delete this trend?')) return;
-
-    try{
-		const result = await deleteTrend(trend.id); // delete in db
-    if(!result)
-      return toast.error('Something went wrong...');
-    } catch(err: any){
-      toast.error(err.message);
-    }
-		setTrends(
-			storedTrends?.filter((storedTrend) => storedTrend.id !== trend.id)
-		); // delete in store
-	};
-
-  const onDeleteComment = async(commentId: number) => {
-    if(!confirm('Are you sure you want to delete this comment?')) return;
-
-    try{
-    const result = await deleteComment(commentId);
-    if(!result)
-      return toast.error('Something went wrong...');
-    } catch(err: any){
-      toast.error(err.message);
-    }
-
-    setComments(storedComments?.filter(comment => comment.id !== commentId));
-  }
-
-	const closeModal = (modalType: 'trend-modal' | 'comment-modal') => {
-		if (modalType === 'trend-modal') {
-			setShowTrendForm(null);
-			return showTrendForm;
-		}
-		// else comment-modal
-		setShowCommentForm(null);
-		return showCommentForm;
-	};
+  const [subComponent, setSubComponent] = useState('trends');
 
 	if (!authToken)
 		return (
@@ -87,101 +25,18 @@ const UserDashboard = () => {
 			</p>
 		);
 
-	if (usersTrends?.length === 0)
-		return (
-			<p className='no-trends-message'>
-				It looks like you haven't made any trends yet. You can make one{' '}
-				<NavLink to='/create-trend'>here</NavLink>.
-			</p>
-		);
-
 	return (
 		<UserDashboardStyles>
 			<>
-      <div className="private-messages-container">
-        <div className='private-messages' onClick={() => navigate('/private-messages')}><Icon icon='mailForward'/>Messages</div>
-      </div>
-				<h2>{username}'s Trends</h2>
-				{usersTrends.map((trend) => (
-					<div className='trend-info-container'>
-						<div className='trend-info'>
-							<div className='title'>Title: {trend.alt}</div>
-							<p className='description'>
-								Content: {trend.content.slice(0, 30)}...
-							</p>
-							<div className='date-created'>
-								Date:{' '}
-								{moment(trend.created_at).format('MMMM Do YYYY, h:mm:ss a')}
-							</div>
-						</div>
-						<div className="buttons">
-							<button
-								className='edit'
-								title='edit'
-								onClick={() =>
-									setShowTrendForm(showTrendForm === trend.id ? null : trend.id)
-								}>
-								<Icon icon='edit' />
-							</button>
-							<button
-								className='delete'
-								title='delete'
-								onClick={() => onDeleteTrend(trend)}>
-								<Icon icon='delete' />
-							</button>
-						</div>
-						{showTrendForm === trend.id && (
-							<Modal onCloseModal={() => closeModal('trend-modal')}>
-								<TrendForm
-									formTitle={'Edit Trend'}
-									formButtonText='update'
-									views={trend.views}
-									initialFormFields={{
-										id: trend.id,
-										title: trend.alt,
-										content: trend.content,
-										image: trend.image,
-										category: trend.category,
-										author_privacy: trend.author_privacy,
-									}}
-								/>
-							</Modal>
-						)}
-					</div>
-				))}
-				<h2>{username}'s Comments</h2>
-				{usersComments.map((comment) => (
-					<div className='comment-info-container'>
-						<div className='comment-info'>
-							<div className='trend'>Trend: {comment.trend_title}</div>
-							<div className='comment'>Comment: {comment.content}</div>
-							<div className='author'>
-								Date:{' '}
-								{moment(comment.created_at).format('MMMM Do YYYY, h:mm:ss a')}
-							</div>
-						</div>
-						<div className='buttons'>
-              <button className='edit'
-                onClick={() =>
-                  setShowCommentForm(
-                    comment.id === showCommentForm ? null : comment.id
-                  )
-                }>
-                <Icon icon='edit' />
-              </button>
-              <button className='delete' onClick={() => onDeleteComment(comment.id)}><Icon icon='delete' /></button>
-            </div>
-						{showCommentForm === comment.id && (
-							<Modal maxHeight={'40vh'} onCloseModal={() => closeModal('comment-modal')}>
-								<DashboardCommentForm
-									initialFormFields={{ id: comment.id, comment: comment.content }}
-									username={username}
-									trendId={comment.trend_id}
-								/>
-							</Modal>
-						)}
-					</div>
-				))}
+        <div className='sub-components'>
+          <Button className='sub-component' onClick={() => setSubComponent('trends')}><Icon icon='trends'/>Trends</Button>
+          <Button className='sub-component' onClick={() => setSubComponent('comments')}><Icon icon='comments'/>Comments</Button>
+          <Button className='sub-component' onClick={() => setSubComponent('messages')}><Icon icon='mailForward'/>Messages</Button>
+        </div>
+        
+				{subComponent === 'trends' && <UserDashboardTrends />}
+				{subComponent === 'comments' && <UserDashboardComments />}
+				{subComponent === 'messages' && <PrivateMessages />}
 			</>
 		</UserDashboardStyles>
 	);
@@ -257,9 +112,6 @@ const UserDashboardStyles = styled.div`
 		border-radius: 0.2rem;
 	}
 
-  .private-messages-container{
-    text-align: left;
-  }
   .private-messages{
     display: inline-block;
     padding: 0.2rem;
@@ -280,4 +132,21 @@ const UserDashboardStyles = styled.div`
     &:focus{
     }
   }
+
+  .sub-components{
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  .sub-component{
+    font-size: 0.5rem;
+  }
+
+  @media only screen and (max-width: 500px) {
+    .sub-component{
+        font-size: 0.1rem;
+    }
+  
+		}
 `;
