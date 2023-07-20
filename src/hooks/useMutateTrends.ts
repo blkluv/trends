@@ -11,10 +11,10 @@ export const useMutateTrends = (mtnFn: any) => {
     mutationFn: (trend: (TrendData | Trend), trendId?: number) => mtnFn(trend, trendId),
     onSuccess: ( (savedTrend: Trend) => {
       const filteredTrends = prevStoredTrends.filter(trend => trend.id !== savedTrend.id); // needed for update case
-      setTrends([savedTrend, ...filteredTrends]);
+      setTrends([...filteredTrends, savedTrend]);
       queryClient.invalidateQueries({queryKey: ['trends']});
       queryClient.setQueryData<Trend[]>(['trends'], () => {
-        return [savedTrend, ...(filteredTrends || [])];
+        return [...(filteredTrends || []), savedTrend];
       });
     } )
   });
