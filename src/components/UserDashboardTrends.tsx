@@ -10,12 +10,10 @@ import toast from "react-hot-toast";
 import Icon from "../components/Icon";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import { useTrends } from "../hooks/useTrends";
 
 const UserDashboardTrends = () => {
-  const [setTrends, username, user_id ] = useTrendingStore(store => [store.setTrends, store.username, store.user_id]);
-  const {data: trends} = useTrends();
-  const usersTrends = filterTrendsByKeyValue('user_id', user_id, trends);
+  const [storedTrends, setTrends, username, user_id ] = useTrendingStore(store => [store.trends, store.setTrends, store.username, store.user_id]);
+  const usersTrends = filterTrendsByKeyValue('user_id', user_id, storedTrends);
   const [showTrendForm, setShowTrendForm] = useState<number | null>(null);
 
   const onDeleteTrend = async (trend: Trend) => {
@@ -28,9 +26,8 @@ const UserDashboardTrends = () => {
     } catch(err: any){
       toast.error(err.message);
     }
-    if(!trends) return;
 		setTrends(
-			trends?.filter((storedTrend) => storedTrend.id !== trend.id)
+			storedTrends?.filter((storedTrend) => storedTrend.id !== trend.id)
 		); // delete in store
 	};
 
