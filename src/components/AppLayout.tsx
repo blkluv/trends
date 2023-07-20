@@ -5,8 +5,6 @@ import Sidebar from './Sidebar';
 import { useTrendingStore } from '../store';
 import { IStyledProps } from '../interfaces/cssComponentStyles';
 
-
-
 const AppLayout = () => {
   const theme = useTrendingStore(store => store.theme);
 
