@@ -12,7 +12,7 @@ npm run dev
 ```
 App will be live on localhost:5173.
 
-## Screenshots
+## Features
 ### Create trends and comment on trends.
 ![Vite-React-TS (3)](https://github.com/katsup07/trending-website/assets/90941888/a1237b58-2afd-454f-911c-77e5dda17ee2)
 <br>
