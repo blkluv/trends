@@ -21,12 +21,12 @@ App will be live on localhost:5173.
 ![Vite-React-TS (11)](https://github.com/katsup07/trending-website/assets/90941888/d94366be-8b9f-4730-997c-fcf3eb079ccc)
 <br>
 <br>
+### View and order top rated trends by popularity, likes, dislikes, comments, or views.
+![Vite-React-TS (1)](https://github.com/katsup07/trending-website/assets/90941888/0135ef5c-489f-4c7f-ba88-8df6f1d3d185)
+<br>
+<br>
 ### Login to vote, leave comments, and access dashboard features.
 ![Vite-React-TS (2)](https://github.com/katsup07/trending-website/assets/90941888/5413a40e-ccaa-4305-88f1-0e32c27222de)
-<br>
-<br>
-### View and filter top rated trends by popularity, likes, dislikes, comments, or views.
-![Vite-React-TS (1)](https://github.com/katsup07/trending-website/assets/90941888/0135ef5c-489f-4c7f-ba88-8df6f1d3d185)
 <br>
 <br>
 ### Edit and delete trends.
