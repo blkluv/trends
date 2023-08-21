@@ -29,7 +29,7 @@ App will be live on localhost:5173.
 ![Vite-React-TS (2)](https://github.com/katsup07/trending-website/assets/90941888/5413a40e-ccaa-4305-88f1-0e32c27222de)
 <br>
 <br>
-### Edit and delete trends.
+### Edit and delete trends/comments.
 ![Vite-React-TS (12)](https://github.com/katsup07/trending-website/assets/90941888/613a8454-6f12-414e-ae5b-e13e0d056693)
 <br>
 <br>
